@@ -32,7 +32,7 @@ export default function HomePage() {
     );
 
     const renderInfoSection = () => (
-        <div className="info-section" style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "7px", marginTop: "20px" }}>
+        <div data-testid="info-section" style={{ padding: "20px", borderRadius: "7px", marginTop: "20px" }}>
             <h2>About Organic</h2>
             <p>
             Organic is a platform designed to equip students and instructors with a comprehensive suite of tools for efficiently managing GitHub organizations associated with computer science courses.
