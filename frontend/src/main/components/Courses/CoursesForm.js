@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
 import React, { useEffect } from 'react';
 
-function CoursesForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function CoursesForm({ initialContents, submitAction, buttonLabel = "Create", schoolOptions = [] }) { // schooloptions = drop down menu items
     useEffect(() => {
         enableEndDateValidation(); // Call the function to enable end date validation
-    },); // Run only once after component mounts
+    }, []); // Run only once after component mounts
     // Stryker disable all
     const {
         register,
@@ -68,13 +68,19 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create" }) 
                 <Col>
                     <Form.Group className="mb-3" >
                         <Form.Label htmlFor="school">School</Form.Label>
-                        <Form.Control
+                        <Form.Select
                             data-testid="CoursesForm-school"
                             id="school"
-                            type="text"
                             isInvalid={Boolean(errors.school)}
                             {...register("school", { required: true })}
-                        />
+                        >
+                            <option value="">Select a school</option>
+                            {schoolOptions.map((school, index) => (
+                                <option key={index} value={school}>
+                                    {school}
+                                </option>
+                            ))}
+                        </Form.Select>
                         <Form.Control.Feedback type="invalid">
                             {errors.school && 'School is required. '}
                         </Form.Control.Feedback>
