@@ -1,22 +1,17 @@
 package edu.ucsb.cs156.organic.controllers;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import edu.ucsb.cs156.organic.entities.Course;
 import edu.ucsb.cs156.organic.entities.Staff;
 import edu.ucsb.cs156.organic.entities.User;
 import edu.ucsb.cs156.organic.errors.EntityNotFoundException;
@@ -26,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Tag(name = "Staff")
 @RequestMapping("/api/staff")
@@ -74,40 +70,24 @@ public class StaffController extends ApiController{
 //         return course;
 // }
 
-//     @Operation(summary = "Create a new course")
-//     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INSTRUCTOR')")
-//     @PostMapping("/post")
-//     public Course postCourse(
-//             @Parameter(name = "name", description = "course name, e.g. CMPSC 156") @RequestParam String name,
-//             @Parameter(name = "school", description = "school abbreviation e.g. UCSB") @RequestParam String school,
-//             @Parameter(name = "term", description = "quarter or semester, e.g. F23") @RequestParam String term,
-//             @Parameter(name = "startDate", description = "in iso format, i.e. YYYY-mm-ddTHH:MM:SS; e.g. 2023-10-01T00:00:00 see https://en.wikipedia.org/wiki/ISO_8601") @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-//             @Parameter(name = "endDate", description = "in iso format, i.e. YYYY-mm-ddTHH:MM:SS; e.g. 2023-12-31T11:59:59 see https://en.wikipedia.org/wiki/ISO_8601") @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-//             @Parameter(name = "githubOrg", description = "for example ucsb-cs156-f23") @RequestParam String githubOrg)
-//             throws JsonProcessingException {
+    @Operation(summary = "Create a new staff")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/post")
+    public Staff postCourse(
+            @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
+            @Parameter(name = "githubId", description = "school abbreviation e.g. UCSB") @RequestParam Integer githubId)
+            throws JsonProcessingException {
 
-//         Course course = Course.builder()
-//                 .name(name)
-//                 .school(school)
-//                 .term(term)
-//                 .startDate(startDate)
-//                 .endDate(endDate)
-//                 .githubOrg(githubOrg)
-//                 .build();
 
-//         Course savedCourse = courseRepository.save(course);
-//         User u = getCurrentUser().getUser();
+        Staff staff = Staff.builder()
+                    .courseId(courseId)
+                    .githubId(githubId)
+                    .build();
 
-//         Staff courseStaff = Staff.builder()
-//                 .courseId(savedCourse.getId())
-//                 .githubId(u.getGithubId())
-//                 .build();
+        Staff savedStaff = staffRepository.save(staff);
 
-//         log.info("courseStaff={}", courseStaff);
-//         courseStaffRepository.save(courseStaff);
-
-//         return savedCourse;
-//     }
+        return savedStaff;
+    }
 
 //     @Operation(summary = "Add a staff member to a course")
 //     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -203,28 +183,21 @@ public class StaffController extends ApiController{
 //     }
 
 //     // delete a course if the user is an admin or instructor for the course
-//     @Operation(summary = "Delete a course")
-//     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_INSTRUCTOR')")
-//     @DeleteMapping("/delete")
-//     public Course deleteCourse(
-//             @Parameter(name = "id") @RequestParam Long id)
-//             throws JsonProcessingException {
+    @Operation(summary = "Delete a staff")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @DeleteMapping("/delete")
+    public Staff deleteCourse(
+            @Parameter(name = "id") @RequestParam Long id)
+            throws JsonProcessingException {
 
-//         Course course = courseRepository.findById(id)
-//                 .orElseThrow(() -> new EntityNotFoundException(Course.class, id.toString()));
+        Staff staff = staffRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Staff.class, id.toString()));
 
-//         // Check if the current user is a staff member for this course or an admin. If
-//         // not, throw AccessDeniedException
+        // Check if the current user is a staff member for this course or an admin. If
+        // not, throw AccessDeniedException
 
-//         User u = getCurrentUser().getUser();
-//         if (!u.isAdmin()) {
-//             courseStaffRepository.findByCourseIdAndGithubId(course.getId(), u.getGithubId())
-//                     .orElseThrow(() -> new AccessDeniedException(
-//                             "User is not a staff member for this course"));
-//         }
-
-//         courseRepository.delete(course);
-//         return course;
-//     }
+        staffRepository.delete(staff);
+        return staff;
+    }
 
 }
