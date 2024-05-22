@@ -27,8 +27,8 @@ export default function StaffEditPage({ storybook = false }) {
         method: "PUT",
         params: {
             id: staff.id,
-            courseid: staff.courseid,
-            githubid: staff.githubid
+            courseId: staff.courseId,
+            githubId: staff.githubId
         },
     });
 
@@ -56,7 +56,7 @@ export default function StaffEditPage({ storybook = false }) {
     return (
         <BasicLayout>
             <div className="pt-2">
-                <h1>Edit Course</h1>
+                <h1>Edit Staff</h1>
                 {
                     staff && <StaffForm initialContents={staff} submitAction={onSubmit} buttonLabel="Update" />
                 }
