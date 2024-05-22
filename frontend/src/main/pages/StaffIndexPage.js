@@ -14,7 +14,7 @@ export default function StaffIndexPage() {
       return (
           <Button
               variant="primary"
-              href="/staffs/create"
+              href="/staff/create"
               style={{ float: "right" }}
           >
               Create Staff 
@@ -23,7 +23,7 @@ export default function StaffIndexPage() {
     
   }
   
-  const { data: staffs, error: _error, status: _status } =
+  const { data: staff, error: _error, status: _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       ["/api/staff/all"],
@@ -35,11 +35,9 @@ export default function StaffIndexPage() {
     return (
       <BasicLayout>
         <div className="pt-2">
-          {(hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR") 
-        //   || hasRole(currentUser, "ROLE_USER")
-          ) && createButton()}
-          <h1>Staffs</h1>
-          <StaffTable staff={staffs} currentUser={currentUser} />
+          {(hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR")) && createButton()}
+          <h1>Staff</h1>
+          <StaffTable staff={staff} currentUser={currentUser} />
     
         </div>
       </BasicLayout>

@@ -33,7 +33,7 @@ export default function CourseIndexPage() {
 
     return (
       <BasicLayout>
-        <button onClick={() => window.location.href='/staffs'} variant="primary">Staffs, Click Here!</button>
+        <button onClick={() => window.location.href='/staff'} variant="primary">Staffs, Click Here!</button>
 
         <div className="pt-2">
           {(hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR")) && createButton()}

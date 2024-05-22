@@ -2,7 +2,7 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function StaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     // Stryker disable all
     const {
@@ -27,7 +27,7 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                         <Form.Group className="mb-3" >
                             <Form.Label htmlFor="id">Id</Form.Label>
                             <Form.Control
-                                data-testid="AddCourseStaffForm-id"
+                                data-testid="StaffForm-id"
                                 id="id"
                                 type="text"
                                 {...register("id")}
@@ -44,7 +44,7 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                     <Form.Group className="mb-3" >
                         <Form.Label htmlFor="courseId">courseId</Form.Label>
                         <Form.Control
-                            data-testid="AddCourseStaffForm-courseId"
+                            data-testid="StaffForm-courseId"
                             id="courseId"
                             type="text"
                             isInvalid={Boolean(errors.courseId)}
@@ -59,7 +59,7 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                     <Form.Group className="mb-3" >
                         <Form.Label htmlFor="githubId">Github Id</Form.Label>
                         <Form.Control
-                            data-testid="AddCourseStaffForm-githubId"
+                            data-testid="StaffForm-githubId"
                             id="githubId"
                             type="text"
                             isInvalid={Boolean(errors.githubId)}
@@ -76,14 +76,14 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                 <Col>
                     <Button
                         type="submit"
-                        data-testid="AddCourseStaffForm-submit"
+                        data-testid="StaffForm-submit"
                     >
                         {buttonLabel}
                     </Button>
                     <Button
                         variant="Secondary"
                         onClick={() => navigate(-1)}
-                        data-testid="AddCourseStaffForm-cancel"
+                        data-testid="StaffForm-cancel"
                     >
                         Cancel
                     </Button>
@@ -94,4 +94,4 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
     )
 }
 
-export default AddCourseStaffForm
+export default StaffForm
