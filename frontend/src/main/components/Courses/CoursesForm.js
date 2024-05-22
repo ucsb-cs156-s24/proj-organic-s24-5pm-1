@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
 import React, { useEffect } from 'react';
+import { schoolsFixtures } from "fixtures/schoolsFixtures.js";
 
-function CoursesForm({ initialContents, submitAction, buttonLabel = "Create", schoolOptions = [] }) { // schooloptions = drop down menu items
+function CoursesForm({ initialContents, submitAction, buttonLabel = "Create", schoolOptions = [schoolsFixtures.threeSchools[0].name] }) { // schooloptions = drop down menu items
     useEffect(() => {
         enableEndDateValidation(); // Call the function to enable end date validation
     }, []); // Run only once after component mounts
