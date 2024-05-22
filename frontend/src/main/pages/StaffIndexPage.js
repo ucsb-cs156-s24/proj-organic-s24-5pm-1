@@ -1,11 +1,12 @@
+
 import React from 'react'
 import { useBackend } from 'main/utils/useBackend';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CoursesTable from 'main/components/Courses/CoursesTable';
 import { Button } from 'react-bootstrap';
 import { useCurrentUser, hasRole} from 'main/utils/currentUser';
+import StaffTable from 'main/components/Staff/StaffTable';
 
-export default function CourseIndexPage() {
+export default function StaffIndexPage() {
 
   const { data: currentUser } = useCurrentUser();
   const createButton = () => {  
@@ -13,32 +14,32 @@ export default function CourseIndexPage() {
       return (
           <Button
               variant="primary"
-              href="/courses/create"
+              href="/staffs/create"
               style={{ float: "right" }}
           >
-              Create Course 
+              Create Staff 
           </Button>
       )
     
   }
   
-  const { data: courses, error: _error, status: _status } =
+  const { data: staffs, error: _error, status: _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      ["/api/courses/all"],
+      ["/api/staff/all"],
       // Stryker disable next-line all : GET is the default
-      { method: "GET", url: "/api/courses/all" },
+      { method: "GET", url: "/api/staff/all" },
       []
     );
 
     return (
       <BasicLayout>
-        <button onClick={() => window.location.href='/staffs'} variant="primary">Staffs, Click Here!</button>
-
         <div className="pt-2">
-          {(hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR")) && createButton()}
-          <h1>Course</h1>
-          <CoursesTable courses={courses} currentUser={currentUser} />
+          {(hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR") 
+        //   || hasRole(currentUser, "ROLE_USER")
+          ) && createButton()}
+          <h1>Staffs</h1>
+          <StaffTable staff={staffs} currentUser={currentUser} />
     
         </div>
       </BasicLayout>
