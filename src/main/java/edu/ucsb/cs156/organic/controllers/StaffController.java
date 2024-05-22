@@ -1,11 +1,11 @@
 package edu.ucsb.cs156.organic.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-
 
 @Tag(name = "Staff")
 @RequestMapping("/api/staff")
@@ -115,19 +114,18 @@ public class StaffController extends ApiController{
 //         return courseStaff;
 //     }
 
-//     @Operation(summary = "Get Staff for course")
-//     @PreAuthorize("hasRole('ROLE_ADMIN')")
-//     @GetMapping("/getStaff")
-//     public Iterable<Staff> getStaff(
-//             @Parameter(name = "courseId") @RequestParam Long courseId)
-//             throws JsonProcessingException {
+    @Operation(summary = "Get Staff")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/get")
+    public Staff getStaff(
+            @Parameter(name = "id") @RequestParam Long id)
+            throws JsonProcessingException {
 
-//         Course course = courseRepository.findById(courseId)
-//                 .orElseThrow(() -> new EntityNotFoundException(Course.class, courseId.toString()));
+        Staff staff = staffRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Staff.class, id.toString()));
 
-//         Iterable<Staff> courseStaff = courseStaffRepository.findByCourseId(course.getId());
-//         return courseStaff;
-//     }
+        return staff;
+    }
 
 //     @Operation(summary = "Delete a Course Staff by id")
 //     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -141,46 +139,28 @@ public class StaffController extends ApiController{
 //                 return genericMessage("Staff with id %s is deleted".formatted(id));
 //         }
 
-//     @Operation(summary = "Update information for a course")
-//     // allow for roles of ADMIN or INSTRUCTOR but only if the user is a staff member
-//     // for the course
-//     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_INSTRUCTOR')")
-//     @PutMapping("/update")
-//     public Course updateCourse(
-//             @Parameter(name = "id") @RequestParam Long id,
-//             @Parameter(name = "name", description = "course name, e.g. CMPSC 156") @RequestParam String name,
-//             @Parameter(name = "school", description = "school abbreviation e.g. UCSB") @RequestParam String school,
-//             @Parameter(name = "term", description = "quarter or semester, e.g. F23") @RequestParam String term,
-//             @Parameter(name = "startDate", description = "in iso format, i.e. YYYY-mm-ddTHH:MM:SS; e.g. 2023-10-01T00:00:00 see https://en.wikipedia.org/wiki/ISO_8601") @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-//             @Parameter(name = "endDate", description = "in iso format, i.e. YYYY-mm-ddTHH:MM:SS; e.g. 2023-12-31T11:59:59 see https://en.wikipedia.org/wiki/ISO_8601") @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-//             @Parameter(name = "githubOrg", description = "for example ucsb-cs156-f23") @RequestParam String githubOrg)
-//             throws JsonProcessingException {
+    @Operation(summary = "Update information for a staff member")
+    // allow for roles of ADMIN or INSTRUCTOR but only if the user is a staff member
+    // for the course
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PutMapping("/update")
+    public Staff updateStaff(
+            @Parameter(name = "id") @RequestParam Long id,
+            @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
+            @Parameter(name = "githubId", description = "school abbreviation e.g. UCSB") @RequestParam Integer githubId)
+            throws JsonProcessingException {
 
-//         Course course = courseRepository.findById(id)
-//                 .orElseThrow(() -> new EntityNotFoundException(Course.class, id.toString()));
+        Staff staff = staffRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Staff.class, id.toString()));
 
-//         // Check if the current user is a staff member for this course or an admin. If
-//         // not, throw AccessDeniedException
+        staff.setCourseId(courseId);
+        staff.setGithubId(githubId);
 
-//         User u = getCurrentUser().getUser();
-//         if (!u.isAdmin()) {
-//             courseStaffRepository.findByCourseIdAndGithubId(course.getId(), u.getGithubId())
-//                     .orElseThrow(() -> new AccessDeniedException(
-//                             "User is not a staff member for this course"));
-//         }
+        staff = staffRepository.save(staff);
+        log.info("staff={}", staff);
 
-//         course.setName(name);
-//         course.setSchool(school);
-//         course.setTerm(term);
-//         course.setStartDate(startDate);
-//         course.setEndDate(endDate);
-//         course.setGithubOrg(githubOrg);
-
-//         course = courseRepository.save(course);
-//         log.info("course={}", course);
-
-//         return course;
-//     }
+        return staff;
+    }
 
 //     // delete a course if the user is an admin or instructor for the course
     @Operation(summary = "Delete a staff")
