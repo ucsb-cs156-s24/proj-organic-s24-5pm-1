@@ -34,6 +34,7 @@ function App() {
     <>
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/courses" element={<CourseIndexPage />} />
+      <Route path="/courses/create" element={<CoursesCreatePage />} />
     </>
   ) : null;
 
