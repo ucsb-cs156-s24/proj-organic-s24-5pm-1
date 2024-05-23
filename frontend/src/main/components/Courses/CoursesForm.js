@@ -2,12 +2,25 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
-import React, { useEffect } from 'react';
-import { schoolsFixtures } from "fixtures/schoolsFixtures.js";
+import React, { useEffect, useState } from 'react';
 
-function CoursesForm({ initialContents, submitAction, buttonLabel = "Create", schoolOptions = [schoolsFixtures.threeSchools[0].name] }) { // schooloptions = drop down menu items
+// import { schoolsFixtures } from "fixtures/schoolsFixtures.js";
+import axios from 'axios';
+
+
+
+function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) { // schooloptions = drop down menu items
+    const [schoolOptions, setSchoolOptions] = useState([]);
     useEffect(() => {
         enableEndDateValidation(); // Call the function to enable end date validation
+        axios.get('/api/schools/all')
+            .then((data) => {
+                return data.data;
+            })
+            .then((jsonData) => {
+                const nameArray = jsonData.map(item => item.name);
+                setSchoolOptions(nameArray);
+            })
     }, []); // Run only once after component mounts
     // Stryker disable all
     const {
