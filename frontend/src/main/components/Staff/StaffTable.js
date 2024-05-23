@@ -46,8 +46,8 @@ export default function StaffTable({ staff, currentUser }) {
 
     if (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR")) {
         // columns.push(ButtonColumn("Staff", "primary", staffCallback, "staffTable"));
-        columns.push(ButtonColumn("Edit", "primary", editCallback, "staffTable"));
-        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "staffTable"));
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "StaffTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "StaffTable"));
     }
 
     return <OurTable
