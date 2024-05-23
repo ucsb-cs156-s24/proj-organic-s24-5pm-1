@@ -33,7 +33,7 @@ export default function StaffEditPage({ storybook = false }) {
     });
 
     const onSuccess = (staff) => {
-        toast(`Staff Updated - id: ${staff.id} courseid: ${staff.courseid}`);
+        toast(`Staff Updated - id: ${staff.id} courseid: ${staff.courseId} githubid: ${staff.githubId}`);
     }
 
     const mutation = useBackendMutation(

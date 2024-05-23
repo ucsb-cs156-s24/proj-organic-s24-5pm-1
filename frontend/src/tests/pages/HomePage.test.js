@@ -47,7 +47,7 @@ describe("HomePage tests", () => {
     });
 
     test('shows greeting for logged-in users with dynamic time of day', () => {
-        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly); // Adjust this if needed
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly); 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -61,24 +61,7 @@ describe("HomePage tests", () => {
             greetingElement.textContent
         ).toMatch(/Good (morning|afternoon|evening), cgaucho/); 
     });
-    
-    // test('renders greeting for non-logged-in users correctly', () => {
-    //     // Mock the `useCurrentUser` hook to return a logged-out state
-    //     jest.mock("main/utils/currentUser", () => ({
-    //         useCurrentUser: jest.fn(() => ({ data: { loggedIn: false } }))
-    //     }));
-    
-    //     render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <HomePage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
-    
-    //     const greetingElement = screen.getByTestId("homePage-title");
-    //     expect(greetingElement.textContent).toContain("Good afternoon, cgaucho");
-    // });  
+     
 });
 
 describe('HomePage greetings for not logged in users at different times of the day', () => {
@@ -154,7 +137,6 @@ describe('HomePage greetings for not logged in users at different times of the d
         global.Date = originalDate;
         axiosMock.reset();
         axiosMock.resetHistory();
-        //axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingAll);
 
     });

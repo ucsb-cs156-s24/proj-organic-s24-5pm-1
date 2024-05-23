@@ -147,7 +147,8 @@ describe("StaffEditPage tests", () => {
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled());
-
+            
+            expect(mockToast).toBeCalledWith("Staff Updated - id: 17 courseid: 4 githubid: 5");
             expect(mockNavigate).toBeCalledWith({ "to": "/staff" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
