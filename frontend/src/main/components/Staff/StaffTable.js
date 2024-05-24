@@ -21,13 +21,7 @@ export default function StaffTable({ staff, currentUser }) {
         ["/api/staff/all"]
     );
 
-    const deleteCallback = async (cell) => {
-        try {
-            deleteMutation.mutate(cell);
-        } catch (error) {
-            console.error("Failed to delete staff member:", error);
-        }
-    };
+    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
 
     const columns = [
         {

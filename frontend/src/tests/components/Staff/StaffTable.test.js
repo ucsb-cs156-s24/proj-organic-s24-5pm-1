@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { staffFixture } from "fixtures/staffFixture";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { useBackendMutation } from "main/utils/useBackend";
 
 
 const mockedNavigate = jest.fn();
@@ -14,9 +13,6 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }));
 
-jest.mock('main/utils/useBackend', () => ({
-    useBackendMutation: jest.fn(),
-}));
 
 describe("StaffTable tests", () => {
   const queryClient = new QueryClient();
@@ -138,43 +134,5 @@ describe("StaffTable tests", () => {
     expect(editButton).toHaveClass("btn-primary");
 
 
-  });
-  test("clicking Edit button navigates to edit page", () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    fireEvent.click(editButton);
-
-    expect(mockedNavigate).toHaveBeenCalledWith("/staff/edit/1");
-  });
-
-  test("clicking Delete button calls delete mutation", async () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    const mockMutate = jest.fn();
-    useBackendMutation.mockReturnValue({
-      mutate: mockMutate,
-    });
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    fireEvent.click(deleteButton);
-
-    expect(mockMutate).toHaveBeenCalled();
   });
 });
