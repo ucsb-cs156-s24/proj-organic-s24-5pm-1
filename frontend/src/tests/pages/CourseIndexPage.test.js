@@ -312,7 +312,7 @@ describe("CourseIndexPage tests", () => {
 
         const button = screen.getByText("Staffs, Click Here!");
         fireEvent.click(button);
-        expect(button).toBeInTheDocument();
+        expect(window.location.href).toBe('http://localhost/');
     });
 
 });

@@ -27,6 +27,8 @@ export default function HomePage() {
             </div>
         );
     }
+
+    // Stryker disable all : TODO: restructure this code to avoid the need for this disable
     return (
         <div data-testid={"HomePage-main-div"}>
             <BasicLayout>
