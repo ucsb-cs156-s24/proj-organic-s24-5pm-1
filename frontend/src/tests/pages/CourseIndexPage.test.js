@@ -2,11 +2,13 @@ import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import CourseIndexPage from "main/pages/CourseIndexPage";
-
+import StaffTable from "main/components/Staff/StaffTable"
+import { staffFixture } from "fixtures/staffFixture";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { coursesFixtures } from "fixtures/coursesFixtures";
+import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
@@ -65,7 +67,7 @@ describe("CourseIndexPage tests", () => {
         );
 
         // assert
-        await waitFor( ()=>{
+        await waitFor(() => {
             expect(screen.getByText(/Create Course/)).toBeInTheDocument();
         });
         const button = screen.getByText(/Create Course/);
@@ -89,20 +91,20 @@ describe("CourseIndexPage tests", () => {
         );
 
         // assert
-        await waitFor( ()=>{
+        await waitFor(() => {
             expect(screen.getByText(/Create Course/)).toBeInTheDocument();
         });
         const button = screen.getByText(/Create Course/);
         expect(button).toHaveAttribute("href", "/courses/create");
         expect(button).toHaveAttribute("style", "float: right;");
     });
-    
+
     test("Renders without Create Button for non admin and non instructor user", async () => {
         // arrange
-        setupUser(); 
+        setupUser();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/courses/all").reply(200, []);
-    
+
         // act
         render(
             <QueryClientProvider client={queryClient}>
@@ -111,14 +113,14 @@ describe("CourseIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-    
+
         // assert
         await waitFor(() => {
             expect(screen.queryByText(/Create Course/)).not.toBeInTheDocument();
         });
     });
-    
-    test("renders three courses correctly for admin", async () => {    
+
+    test("renders three courses correctly for admin", async () => {
         // arrange
         setupAdminUser();
         const queryClient = new QueryClient();
@@ -140,7 +142,7 @@ describe("CourseIndexPage tests", () => {
 
     });
 
-    test("renders three courses correctly for instructor", async () => {      
+    test("renders three courses correctly for instructor", async () => {
         // arrange
         setupInstructorUser();
         const queryClient = new QueryClient();
@@ -299,10 +301,21 @@ describe("CourseIndexPage tests", () => {
         expect(screen.queryByText(/Create Course/)).not.toBeInTheDocument();
 
 
-        // assert
+    });
 
+    test("Clicking button navigates to /staff", async () => {
+        const queryClient = new QueryClient();
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <CourseIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        const button = getByText("Staffs, Click Here!");
+        fireEvent.click(button);
+        expect(button).toBeInTheDocument();
     });
 
 });
-
-

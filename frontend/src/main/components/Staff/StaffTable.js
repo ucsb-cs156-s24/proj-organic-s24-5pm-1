@@ -11,10 +11,6 @@ export default function StaffTable({ staff, currentUser }) {
     const navigate = useNavigate();
 
 
-    // const staffCallback = (cell) => {
-    //     navigate(`/staff/${cell.row.values.id}/staff`);
-    // };
-
     const editCallback = (cell) => {
         navigate(`/staff/edit/${cell.row.values.id}`);
     };
@@ -55,3 +51,4 @@ export default function StaffTable({ staff, currentUser }) {
         columns={columns}
         testid={"StaffTable"} />;
 };
+

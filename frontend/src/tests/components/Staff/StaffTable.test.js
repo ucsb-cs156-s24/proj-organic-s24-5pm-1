@@ -1,7 +1,6 @@
 import StaffTable from "main/components/Staff/StaffTable"
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import {  render, screen } from "@testing-library/react";
 import { staffFixture } from "fixtures/staffFixture";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -125,6 +124,45 @@ describe("StaffTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toHaveClass("btn-danger");
 
+    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveClass("btn-primary");
+
+
+  });
+  test("clicking Edit button navigates to edit page", () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    fireEvent.click(editButton);
+
+    expect(mockedNavigate).toHaveBeenCalledWith("/staff/edit/1");
+  });
+
+  test("clicking Delete button calls delete mutation", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    fireEvent.click(deleteButton);
   });
 });
