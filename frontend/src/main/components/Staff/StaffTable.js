@@ -21,8 +21,13 @@ export default function StaffTable({ staff, currentUser }) {
         ["/api/staff/all"]
     );
 
-    // Stryker disable next-line all : TODO try to make a good test for this
-    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
+    const deleteCallback = async (cell) => {
+        try {
+            deleteMutation.mutate(cell);
+        } catch (error) {
+            console.error("Failed to delete staff member:", error);
+        }
+    };
 
     const columns = [
         {
