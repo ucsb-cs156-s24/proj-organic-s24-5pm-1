@@ -34,13 +34,13 @@ describe("StaffTable tests", () => {
 
     const expectedStaffgithub = staffFixture.threeStaff;
     expectedStaffgithub.forEach((staffMember, index) => {
-      const githubIdCell = screen.getByTestId(`StaffTable-cell-row-${index}-col-githubId`);
+      const githubIdCell = screen.getByTestId(`${testId}-cell-row-${index}-col-githubId`);
       expect(githubIdCell).toHaveTextContent(staffMember.githubId);
     });
 
     const expectedStaffcourse = staffFixture.threeStaff;
     expectedStaffcourse.forEach((staffMember, index) => {
-      const courseIdCell = screen.getByTestId(`StaffTable-cell-row-${index}-col-courseId`);
+      const courseIdCell = screen.getByTestId(`${testId}-cell-row-${index}-col-courseId`);
       expect(courseIdCell).toHaveTextContent(staffMember.courseId);
     });
 

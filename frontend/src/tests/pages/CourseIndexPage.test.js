@@ -301,6 +301,7 @@ describe("CourseIndexPage tests", () => {
     });
 
     test("Clicking button navigates to /staff", async () => {
+        setupAdminUser();
         const queryClient = new QueryClient();
         render(
             <QueryClientProvider client={queryClient}>
@@ -310,9 +311,12 @@ describe("CourseIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        const button = screen.getByText("Staffs, Click Here!");
-        fireEvent.click(button);
-        expect(window.location.href).toBe('http://localhost/');
+        await waitFor(() => {
+            expect(screen.getByText(/Staff Click Here/)).toBeInTheDocument();
+        });
+        const button = screen.getByText(/Staff Click Here/);
+        expect(button).toHaveAttribute("href", "/staff");
+        expect(button).toHaveAttribute("style", "float: middle;");
     });
 
 });
