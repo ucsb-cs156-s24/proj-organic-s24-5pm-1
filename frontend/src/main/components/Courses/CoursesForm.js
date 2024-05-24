@@ -90,7 +90,10 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                         >
                             <option value="">Select a school</option>
                             {schoolOptions.map((school, index) => (
-                                <option key={index} value={school}>
+                                <option 
+                                key={index} 
+                                value={school}
+                                selected={school == initialContents?.school ? true : false}>
                                     {school}
                                 </option>
                             ))}
