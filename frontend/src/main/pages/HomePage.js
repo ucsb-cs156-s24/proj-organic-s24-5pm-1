@@ -52,7 +52,7 @@ export default function HomePage() {
     return (
         <div data-testid={"HomePage-main-div"}>
             <BasicLayout>
-                {renderGreeting(currentUser.loggedIn ? currentUser.root.user.githubLogin : "cgaucho")}
+                {renderGreeting(currentUser.loggedIn ? currentUser.root.user.githubLogin : "Please Sign In First to Proceed")}
                 {renderInfoSection()}
             </BasicLayout>
         </div>
