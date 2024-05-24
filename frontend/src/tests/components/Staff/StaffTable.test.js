@@ -135,4 +135,21 @@ describe("StaffTable tests", () => {
 
 
   });
+  test("clicking Edit button navigates to edit page", () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    fireEvent.click(editButton);
+
+    expect(mockedNavigate).toHaveBeenCalledWith("/staff/edit/1");
+  });
+
 });
