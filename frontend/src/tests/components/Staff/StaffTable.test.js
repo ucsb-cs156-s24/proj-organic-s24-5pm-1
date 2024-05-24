@@ -1,6 +1,6 @@
 import StaffTable from "main/components/Staff/StaffTable"
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
-import { fireEvent, render, waitFor, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { staffFixture } from "fixtures/staffFixture";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";

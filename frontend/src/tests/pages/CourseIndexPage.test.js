@@ -310,7 +310,7 @@ describe("CourseIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        const button = getByText("Staffs, Click Here!");
+        const button = screen.getByText("Staffs, Click Here!");
         fireEvent.click(button);
         expect(button).toBeInTheDocument();
     });
