@@ -199,45 +199,6 @@ public class StaffControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
-    // @WithMockUser(roles = { "INSTRUCTOR", "USER" })
-    // @Test
-    // public void an_instructor_can_post_a_new_course() throws Exception {
-    //     // arrange
-
-    //     Course courseBefore = Course.builder()
-    //             .name("CS16")
-    //             .school("UCSB")
-    //             .term("F23")
-    //             .startDate(LocalDateTime.parse("2023-09-01T00:00:00"))
-    //             .endDate(LocalDateTime.parse("2023-12-31T00:00:00"))
-    //             .githubOrg("ucsb-cs16-f23")
-    //             .build();
-
-    //     Course courseAfter = Course.builder()
-    //             .id(222L)
-    //             .name("CS16")
-    //             .school("UCSB")
-    //             .term("F23")
-    //             .startDate(LocalDateTime.parse("2023-09-01T00:00:00"))
-    //             .endDate(LocalDateTime.parse("2023-12-31T00:00:00"))
-    //             .githubOrg("ucsb-cs16-f23")
-    //             .build();
-
-    //     when(courseRepository.save(eq(courseBefore))).thenReturn(courseAfter);
-
-    //     // act
-    //     MvcResult response = mockMvc.perform(
-    //             post("/api/courses/post?name=CS16&school=UCSB&term=F23&startDate=2023-09-01T00:00:00&endDate=2023-12-31T00:00:00&githubOrg=ucsb-cs16-f23")
-    //                     .with(csrf()))
-    //             .andExpect(status().isOk()).andReturn();
-
-    //     // assert
-    //     verify(courseRepository, times(1)).save(courseBefore);
-    //     String expectedJson = mapper.writeValueAsString(courseAfter);
-    //     String responseString = response.getResponse().getContentAsString();
-    //     assertEquals(expectedJson, responseString);
-    // }
-
     
     @WithMockUser(roles = { "USER" })
     @Test
@@ -264,8 +225,6 @@ public class StaffControllerTests extends ControllerTestCase {
                 .andExpect(status().isForbidden()).andReturn();
     }
 
-    //     // Tests for DELETE /api/staff?id=... 
-
     @WithMockUser(roles = { "ADMIN" })
     @Test
     public void admin_can_delete_a_staff() throws Exception {
@@ -281,9 +240,6 @@ public class StaffControllerTests extends ControllerTestCase {
             // assert
             verify(staffRepository, times(1)).findById(15L);
             verify(staffRepository, times(1)).delete(any());
-
-            // Map<String, Object> json = responseToJson(response);
-            // assertEquals("Staff with id 15 is deleted", json.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN" })

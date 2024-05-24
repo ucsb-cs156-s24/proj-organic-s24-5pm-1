@@ -31,9 +31,6 @@ public class StaffController extends ApiController{
     @Autowired
     StaffRepository staffRepository;
 
-    // @Autowired
-    // StaffRepository courseStaffRepository;
-
     @Autowired
     UserRepository userRepository;
 
@@ -43,7 +40,7 @@ public class StaffController extends ApiController{
     public Iterable<Staff> allCourses() {
         User u = getCurrentUser().getUser();
         log.info("u={}", u);
-        
+
         return staffRepository.findAll();
     }
 
@@ -80,8 +77,6 @@ public class StaffController extends ApiController{
     }
 
     @Operation(summary = "Update information for a staff member")
-    // allow for roles of ADMIN or INSTRUCTOR but only if the user is a staff member
-    // for the course
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping("/update")
     public Staff updateStaff(
@@ -102,7 +97,6 @@ public class StaffController extends ApiController{
         return staff;
     }
 
-//     // delete a course if the user is an admin or instructor for the course
     @Operation(summary = "Delete a staff")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
@@ -119,5 +113,4 @@ public class StaffController extends ApiController{
         staffRepository.delete(staff);
         return staff;
     }
-
 }
