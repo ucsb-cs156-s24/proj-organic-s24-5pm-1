@@ -43,11 +43,8 @@ public class StaffController extends ApiController{
     public Iterable<Staff> allCourses() {
         User u = getCurrentUser().getUser();
         log.info("u={}", u);
-        if (u.isAdmin()) {
-            return staffRepository.findAll();
-        } else {
-            return staffRepository.findByGithubId(u.getGithubId());
-        }
+        
+        return staffRepository.findAll();
     }
 
     @Operation(summary = "Create a new staff")
