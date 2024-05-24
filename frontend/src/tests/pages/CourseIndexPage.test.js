@@ -302,7 +302,7 @@ describe("CourseIndexPage tests", () => {
 
     test("Clicking button navigates to /staff", async () => {
         const queryClient = new QueryClient();
-        const { getByText } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <CourseIndexPage />
