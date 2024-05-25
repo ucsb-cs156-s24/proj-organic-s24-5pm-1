@@ -167,5 +167,4 @@ describe("StaffTable tests", () => {
     expect(deleteButton).toBeInTheDocument();
     fireEvent.click(deleteButton);
   });
-
 });
