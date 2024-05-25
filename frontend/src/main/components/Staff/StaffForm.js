@@ -1,6 +1,5 @@
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
 function StaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
@@ -13,8 +12,6 @@ function StaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
         { defaultValues: initialContents || {}, }
     );
     // Stryker restore all
-
-    const navigate = useNavigate();
 
     return (
 
@@ -79,13 +76,6 @@ function StaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         data-testid="StaffForm-submit"
                     >
                         {buttonLabel}
-                    </Button>
-                    <Button
-                        variant="Secondary"
-                        onClick={() => navigate(-1)}
-                        data-testid="StaffForm-cancel"
-                    >
-                        Cancel
                     </Button>
                 </Col>
             </Row>

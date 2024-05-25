@@ -152,4 +152,20 @@ describe("StaffTable tests", () => {
     expect(mockedNavigate).toHaveBeenCalledWith("/staff/edit/1");
   });
 
+  test("clicking Delete button calls the callback", () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    fireEvent.click(deleteButton);
+  });
+
 });

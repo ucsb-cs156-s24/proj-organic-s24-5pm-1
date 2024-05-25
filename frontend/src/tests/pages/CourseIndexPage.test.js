@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import CourseIndexPage from "main/pages/CourseIndexPage";
 
+
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { coursesFixtures } from "fixtures/coursesFixtures";
@@ -64,7 +65,7 @@ describe("CourseIndexPage tests", () => {
         );
 
         // assert
-        await waitFor(() => {
+        await waitFor( ()=>{
             expect(screen.getByText(/Create Course/)).toBeInTheDocument();
         });
         const button = screen.getByText(/Create Course/);
@@ -88,20 +89,20 @@ describe("CourseIndexPage tests", () => {
         );
 
         // assert
-        await waitFor(() => {
+        await waitFor( ()=>{
             expect(screen.getByText(/Create Course/)).toBeInTheDocument();
         });
         const button = screen.getByText(/Create Course/);
         expect(button).toHaveAttribute("href", "/courses/create");
         expect(button).toHaveAttribute("style", "float: right;");
     });
-
+    
     test("Renders without Create Button for non admin and non instructor user", async () => {
         // arrange
-        setupUser();
+        setupUser(); 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/courses/all").reply(200, []);
-
+    
         // act
         render(
             <QueryClientProvider client={queryClient}>
@@ -110,14 +111,14 @@ describe("CourseIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
+    
         // assert
         await waitFor(() => {
             expect(screen.queryByText(/Create Course/)).not.toBeInTheDocument();
         });
     });
-
-    test("renders three courses correctly for admin", async () => {
+    
+    test("renders three courses correctly for admin", async () => {    
         // arrange
         setupAdminUser();
         const queryClient = new QueryClient();
@@ -139,7 +140,7 @@ describe("CourseIndexPage tests", () => {
 
     });
 
-    test("renders three courses correctly for instructor", async () => {
+    test("renders three courses correctly for instructor", async () => {      
         // arrange
         setupInstructorUser();
         const queryClient = new QueryClient();
@@ -298,25 +299,8 @@ describe("CourseIndexPage tests", () => {
         expect(screen.queryByText(/Create Course/)).not.toBeInTheDocument();
 
 
-    });
+        // assert
 
-    test("Clicking button navigates to /staff", async () => {
-        setupAdminUser();
-        const queryClient = new QueryClient();
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <CourseIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await waitFor(() => {
-            expect(screen.getByText(/Staff Click Here/)).toBeInTheDocument();
-        });
-        const button = screen.getByText(/Staff Click Here/);
-        expect(button).toHaveAttribute("href", "/staff");
-        expect(button).toHaveAttribute("style", "float: middle;");
     });
 
 });

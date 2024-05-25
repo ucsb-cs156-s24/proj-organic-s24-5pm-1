@@ -78,22 +78,4 @@ describe("StaffForm tests", () => {
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     });
-
-
-    test("that navigate(-1) is called when Cancel is clicked", async () => {
-
-        render(
-            <Router  >
-                <StaffForm />
-            </Router>
-        );
-        await screen.findByTestId("StaffForm-cancel");
-        const cancelButton = screen.getByTestId("StaffForm-cancel");
-
-        fireEvent.click(cancelButton);
-
-        await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
-
-    });
-
 });
