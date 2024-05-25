@@ -9,15 +9,15 @@ import { MemoryRouter } from "react-router-dom";
 const mockedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockedNavigate
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigate
 }));
 
 
 describe("StaffTable tests", () => {
   const queryClient = new QueryClient();
   const expectedHeaders = ["id", "courseId", "githubId"];
-  const expectedFields = ["id", "courseId", "githubId"]; 
+  const expectedFields = ["id", "courseId", "githubId"];
   const testId = "StaffTable";
 
   test("Has the expected column headers and content for ordinary user", () => {
@@ -59,7 +59,7 @@ describe("StaffTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
 
-    
+
     const editButton = screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).not.toBeInTheDocument();
 
@@ -76,8 +76,8 @@ describe("StaffTable tests", () => {
 
     // act
     render(
-        <QueryClientProvider client={queryClient}>
-          <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
           <StaffTable staff={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
@@ -105,7 +105,7 @@ describe("StaffTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -154,6 +154,7 @@ describe("StaffTable tests", () => {
 
   test("clicking Delete button calls the callback", () => {
     const currentUser = currentUserFixtures.adminUser;
+    const handleDelete = jest.fn();
 
     render(
       <QueryClientProvider client={queryClient}>
