@@ -154,7 +154,6 @@ describe("StaffTable tests", () => {
 
   test("clicking Delete button calls the callback", () => {
     const currentUser = currentUserFixtures.adminUser;
-    const handleDelete = jest.fn();
 
     render(
       <QueryClientProvider client={queryClient}>
