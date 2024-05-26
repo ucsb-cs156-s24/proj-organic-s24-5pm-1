@@ -117,14 +117,14 @@ public class StaffControllerTests extends ControllerTestCase {
     // Tests for GET /api/staff/get?id=...
     @Test
     public void logged_out_users_cannot_get_by_id() throws Exception {
-            mockMvc.perform(get("/api/staff/get?id=1"))
+            mockMvc.perform(get("/api/staff?id=1"))
                             .andExpect(status().is(403)); // logged out users can't get by id
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void users_cannot_get_by_id() throws Exception {
-            mockMvc.perform(get("/api/staff/get?id=1"))
+            mockMvc.perform(get("/api/staff?id=1"))
                             .andExpect(status().is(403)); // logged out users can't get by id
     }
  
@@ -137,7 +137,7 @@ public class StaffControllerTests extends ControllerTestCase {
             when(staffRepository.findById(eq(1L))).thenReturn(Optional.of(staff));
 
             // act
-            MvcResult response = mockMvc.perform(get("/api/staff/get?id=1"))
+            MvcResult response = mockMvc.perform(get("/api/staff?id=1"))
                             .andExpect(status().isOk()).andReturn();
 
             // assert
@@ -157,7 +157,7 @@ public class StaffControllerTests extends ControllerTestCase {
             when(staffRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
             // act
-            MvcResult response = mockMvc.perform(get("/api/staff/get?id=7"))
+            MvcResult response = mockMvc.perform(get("/api/staff?id=7"))
                             .andExpect(status().isNotFound()).andReturn();
 
             // assert
@@ -188,7 +188,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/staff/post?githubId=19506566&courseId=1")
+                post("/api/staff?githubId=19506566&courseId=1")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -220,7 +220,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/staff/post?githubId=19506566&courseId=1")
+                post("/api/staff?githubId=19506566&courseId=1")
                         .with(csrf()))
                 .andExpect(status().isForbidden()).andReturn();
     }
@@ -233,7 +233,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
             // act
             MvcResult response = mockMvc.perform(
-                            delete("/api/staff/delete?id=15")
+                            delete("/api/staff?id=15")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
@@ -252,7 +252,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
             // act
             MvcResult response = mockMvc.perform(
-                            delete("/api/staff/delete?id=15")
+                            delete("/api/staff?id=15")
                                             .with(csrf()))
                             .andExpect(status().isNotFound()).andReturn();
 
@@ -272,7 +272,7 @@ public class StaffControllerTests extends ControllerTestCase {
         // act
 
         MvcResult response = mockMvc.perform(
-                put("/api/staff/update?id=42&githubId=19506566&courseId=1")
+                put("/api/staff?id=42&githubId=19506566&courseId=1")
                                 .with(csrf()))
                 .andExpect(status().isNotFound()).andReturn();
         // assert
@@ -296,7 +296,7 @@ public class StaffControllerTests extends ControllerTestCase {
         when(staffRepository.save(eq(staffAfter))).thenReturn(staffAfter);
 
         String urlTemplate = String.format(
-                "/api/staff/update?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId());
+                "/api/staff?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId());
         MvcResult response = mockMvc.perform(
                 put(urlTemplate)
                         .with(csrf()))
@@ -331,7 +331,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                put("/api/staff/update?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId())
+                put("/api/staff?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId())
                         .with(csrf()))
                 .andExpect(status().is(403)).andReturn();
 
@@ -357,7 +357,7 @@ public class StaffControllerTests extends ControllerTestCase {
         // act
 
         MvcResult response = mockMvc.perform(
-                delete("/api/staff/delete?id=42")
+                delete("/api/staff?id=42")
                                 .with(csrf()))
                 .andExpect(status().isNotFound()).andReturn();
         // assert
@@ -383,7 +383,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                delete("/api/staff/delete?id=1")
+                delete("/api/staff?id=1")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -394,7 +394,7 @@ public class StaffControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
-    // User cannot delete course at all
+    // User cannot delete staff at all
     @WithMockUser(roles = { "INSTRUCTOR", "USER" })
     @Test
     public void a_user_cannot_delete_a_staff() throws Exception {
@@ -409,7 +409,7 @@ public class StaffControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                delete("/api/staff/delete?id=1")
+                delete("/api/staff?id=1")
                         .with(csrf()))
                 .andExpect(status().isForbidden()).andReturn();
 
