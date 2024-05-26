@@ -18,6 +18,7 @@ export default function StaffTable({ staff, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess }
+        ["/api/staff/all"]
     );
 
     const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
