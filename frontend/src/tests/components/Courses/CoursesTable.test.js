@@ -237,7 +237,7 @@ describe("UserTable tests", () => {
 
     fireEvent.click(staffButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/staff'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/courses/staff'));
 
   });
 

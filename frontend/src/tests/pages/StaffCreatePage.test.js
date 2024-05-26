@@ -25,6 +25,9 @@ jest.mock('react-router-dom', () => {
     return {
         __esModule: true,
         ...originalModule,
+        useParams: () => ({
+            courseId: 1
+        }),
         Navigate: (x) => { mockNavigate(x); return null; }
     };
 });
@@ -58,10 +61,10 @@ describe("StaffCreatePage tests", () => {
         const Staff = {
             id: 1,
             courseId: "2",
-            githubId: "3",
+            githubId: "cgaucho",
         };
 
-        axiosMock.onPost("/api/staff/post").reply(202, Staff);
+        axiosMock.onPost(`/api/courses/staff/post`).reply(202, Staff);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -75,14 +78,12 @@ describe("StaffCreatePage tests", () => {
             expect(screen.getByTestId("StaffForm-courseId")).toBeInTheDocument();
         });
         
-        //const idField = screen.getByTestId("StaffForm-id");
         const courseField = screen.getByTestId("StaffForm-courseId");
         const githubField = screen.getByTestId("StaffForm-githubId");
         const submitButton = screen.getByTestId("StaffForm-submit");
 
-        //fireEvent.change(idField, { target: { value: "2" } });
         fireEvent.change(courseField, { target: { value: 4 } });
-        fireEvent.change(githubField, { target: { value: 5 } });
+        fireEvent.change(githubField, { target: { value: "cgaucho" } });
 
         expect(submitButton).toBeInTheDocument();
 
@@ -94,11 +95,11 @@ describe("StaffCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual(
             {
                 "courseId": "4",
-                "githubId": "5"
+                "githubId": "cgaucho"
             });
 
         expect(mockToast).toBeCalledWith("New staff created - id: 1");
-        expect(mockNavigate).toBeCalledWith({ "to": "/staff" });
+        expect(mockNavigate).toBeCalledWith({ "to": "/courses/1/staff" });
 
     });
 

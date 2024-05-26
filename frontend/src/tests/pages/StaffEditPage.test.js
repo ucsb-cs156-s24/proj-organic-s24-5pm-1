@@ -43,7 +43,7 @@ describe("StaffEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/staff/get", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/courses/staff/get", { params: { id: 17 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -73,15 +73,15 @@ describe("StaffEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/staff/get", { params: { id: 17 } }).reply(200, {
+            axiosMock.onGet("/api/courses/staff/get", { params: { id: 17 } }).reply(200, {
                 id: 17,
                 courseId: "2",
-                githubId: "3"
+                githubId: "cgaucho"
             });
-            axiosMock.onPut('/api/staff/update').reply(200, {
+            axiosMock.onPut('/api/courses/staff/update').reply(200, {
                 id: "17",
                 courseId: "4",
-                githubId: "5"
+                githubId: "cgaucho"
             });
         });
 
@@ -115,7 +115,7 @@ describe("StaffEditPage tests", () => {
 
             expect(idField).toHaveValue("17");
             expect(courseField).toHaveValue(2);
-            expect(githubField).toHaveValue(3);
+            expect(githubField).toHaveValue("cgaucho");
             expect(submitButton).toBeInTheDocument();
         });
 
@@ -138,21 +138,21 @@ describe("StaffEditPage tests", () => {
 
             expect(idField).toHaveValue("17");
             expect(courseField).toHaveValue(2);
-            expect(githubField).toHaveValue(3);
+            expect(githubField).toHaveValue("cgaucho");
             expect(submitButton).toBeInTheDocument();
 
             fireEvent.change(courseField, { target: { value: 4 } })
-            fireEvent.change(githubField, { target: { value: 5 } })
+            fireEvent.change(githubField, { target: { value: "cgaucho" } })
 
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled());
             
-            expect(mockToast).toBeCalledWith("Staff Updated - id: 17 courseid: 4 githubid: 5");
-            expect(mockNavigate).toBeCalledWith({ "to": "/staff" });
+            expect(mockToast).toBeCalledWith("Staff Updated - id: 17 courseid: 4 githubid: cgaucho");
+            expect(mockNavigate).toBeCalledWith({ "to": "/courses/staff" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
-            expect(axiosMock.history.put[0].params).toEqual({ id: 17, courseId: "4", githubId: "5"});
+            expect(axiosMock.history.put[0].params).toEqual({ id: 17, courseId: "4", githubId: "cgaucho"});
 
         });
 

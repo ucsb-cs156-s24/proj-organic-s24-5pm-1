@@ -14,7 +14,7 @@ import React from "react";
     };
 
      const staffCallback = () => {
-        navigate(`/staff`);
+        navigate(`/courses/staff`);
     };
 
      const editCallback = (cell) => {

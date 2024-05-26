@@ -3,11 +3,13 @@ import StaffForm from "main/components/Staff/StaffForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function StaffCreatePage({storybook=false}) {
+    let { courseId } = useParams();
 
     const objectToAxiosParams = (staff) => ({
-        url: "/api/staff/post",
+        url: "/api/courses/staff/post",
         method: "POST",
         params: {
         courseId: staff.courseId,
@@ -23,7 +25,7 @@ export default function StaffCreatePage({storybook=false}) {
         objectToAxiosParams,
         { onSuccess }, 
         // Stryker disable next-line all : hard to set up test for caching
-        ["/api/staff/all"] // mutation makes this key stale so that pages relying on it reload
+        ["/api/courses/staff/all"] // mutation makes this key stale so that pages relying on it reload
         );
 
     const { isSuccess } = mutation
@@ -33,7 +35,7 @@ export default function StaffCreatePage({storybook=false}) {
     }
     
     if (isSuccess && !storybook) {
-        return <Navigate to="/staff" />
+        return <Navigate to={`/courses/${courseId}/staff`} />
     }
 
     return (

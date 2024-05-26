@@ -12,13 +12,13 @@ export default function StaffTable({ staff, currentUser }) {
 
 
     const editCallback = (cell) => {
-        navigate(`/staff/edit/${cell.row.values.id}`);
+        navigate(`/courses/staff/edit/${cell.row.values.id}`);
     };
 
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess }
-        ["/api/staff/all"]
+        ["/api/courses/staff/all"]
     );
 
     const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }

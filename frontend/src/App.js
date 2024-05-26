@@ -31,9 +31,9 @@ function App() {
       <Route path="/admin/schools" element={<SchoolIndexPage />} />
       <Route path="/admin/users" element={<AdminUsersPage />} />
       <Route path="/admin/jobs" element={<AdminJobsPage />} />
-      <Route path="/staff" element={<StaffIndexPage />} />
-      <Route path="/staff/create" element={<StaffCreatePage />} />
-      <Route path="/staff/edit/:id" element={<StaffEditPage />} />
+      <Route path="/courses/staff" element={<StaffIndexPage />} />
+      <Route path="/courses/staff/create" element={<StaffCreatePage />} />
+      <Route path="/courses/staff/edit/:id" element={<StaffEditPage />} />
     </>
   ) : null;
 
