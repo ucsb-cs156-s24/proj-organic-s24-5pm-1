@@ -46,7 +46,7 @@ public class StaffController extends ApiController{
 
     @Operation(summary = "Create a new staff")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PostMapping("/post")
+    @PostMapping("")
     public Staff postCourse(
             @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
             @Parameter(name = "githubId", description = "school abbreviation e.g. UCSB") @RequestParam Integer githubId)
@@ -65,7 +65,7 @@ public class StaffController extends ApiController{
 
     @Operation(summary = "Get Staff")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/get")
+    @GetMapping("")
     public Staff getStaff(
             @Parameter(name = "id") @RequestParam Long id)
             throws JsonProcessingException {
@@ -78,7 +78,7 @@ public class StaffController extends ApiController{
 
     @Operation(summary = "Update information for a staff member")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PutMapping("/update")
+    @PutMapping("")
     public Staff updateStaff(
             @Parameter(name = "id") @RequestParam Long id,
             @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
@@ -99,7 +99,7 @@ public class StaffController extends ApiController{
 
     @Operation(summary = "Delete a staff")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public Staff deleteCourse(
             @Parameter(name = "id") @RequestParam Long id)
             throws JsonProcessingException {
