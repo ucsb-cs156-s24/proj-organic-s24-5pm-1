@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 
     @Operation(summary = &quot;Create a new staff&quot;)
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN')&quot;)
-    @PostMapping(&quot;/post&quot;)
+    @PostMapping(&quot;&quot;)
     public Staff postCourse(
             @Parameter(name = &quot;courseId&quot;, description = &quot;course id&quot;) @RequestParam Long courseId,
             @Parameter(name = &quot;githubId&quot;, description = &quot;school abbreviation e.g. UCSB&quot;) @RequestParam Integer githubId)
@@ -65,7 +65,7 @@ import lombok.extern.slf4j.Slf4j;
 
     @Operation(summary = &quot;Get Staff&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @GetMapping(&quot;/get&quot;)
+    @GetMapping(&quot;&quot;)
     public Staff getStaff(
             @Parameter(name = &quot;id&quot;) @RequestParam Long id)
             throws JsonProcessingException {
@@ -78,7 +78,7 @@ import lombok.extern.slf4j.Slf4j;
 
     @Operation(summary = &quot;Update information for a staff member&quot;)
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN')&quot;)
-    @PutMapping(&quot;/update&quot;)
+    @PutMapping(&quot;&quot;)
     public Staff updateStaff(
             @Parameter(name = &quot;id&quot;) @RequestParam Long id,
             @Parameter(name = &quot;courseId&quot;, description = &quot;course id&quot;) @RequestParam Long courseId,
@@ -99,7 +99,7 @@ import lombok.extern.slf4j.Slf4j;
 
     @Operation(summary = &quot;Delete a staff&quot;)
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN')&quot;)
-    @DeleteMapping(&quot;/delete&quot;)
+    @DeleteMapping(&quot;&quot;)
     public Staff deleteCourse(
             @Parameter(name = &quot;id&quot;) @RequestParam Long id)
             throws JsonProcessingException {
