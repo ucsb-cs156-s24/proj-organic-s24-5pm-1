@@ -9,7 +9,7 @@ export default function StaffCreatePage({storybook=false}) {
     let { courseId } = useParams();
 
     const objectToAxiosParams = (staff) => ({
-        url: "/api/courses/staff/post",
+        url: "/api/staff/post",
         method: "POST",
         params: {
         courseId: staff.courseId,
@@ -25,7 +25,7 @@ export default function StaffCreatePage({storybook=false}) {
         objectToAxiosParams,
         { onSuccess }, 
         // Stryker disable next-line all : hard to set up test for caching
-        ["/api/courses/staff/all"] // mutation makes this key stale so that pages relying on it reload
+        ["/api/staff/all"] // mutation makes this key stale so that pages relying on it reload
         );
 
     const { isSuccess } = mutation
@@ -35,7 +35,7 @@ export default function StaffCreatePage({storybook=false}) {
     }
     
     if (isSuccess && !storybook) {
-        return <Navigate to={`/courses/${courseId}/staff`} />
+        return <Navigate to={`/${courseId}/staff`} />
     }
 
     return (

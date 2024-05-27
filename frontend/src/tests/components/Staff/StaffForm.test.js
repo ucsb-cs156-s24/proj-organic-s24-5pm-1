@@ -72,7 +72,7 @@ describe("StaffForm tests", () => {
         const submitButton = screen.getByTestId("StaffForm-submit");
 
         fireEvent.change(courseField, { target: { value: "1" } });
-        fireEvent.change(githubField, { target: { value: '2' } });
+        fireEvent.change(githubField, { target: { value: "2" } });
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());

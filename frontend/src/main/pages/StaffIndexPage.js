@@ -13,7 +13,7 @@ export default function StaffIndexPage() {
       return (
           <Button
               variant="primary"
-              href="/courses/staff/create"
+              href="/staff/create"
               style={{ float: "right" }}
           >
               Create Staff 
@@ -25,9 +25,9 @@ export default function StaffIndexPage() {
   const { data: staff, error: _error, status: _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      ["/api/courses/staff/all"],
+      ["/api/staff/all"],
       // Stryker disable next-line all : GET is the default
-      { method: "GET", url: "/api/courses/staff/all" },
+      { method: "GET", url: "/api/staff/all" },
       []
     );
 

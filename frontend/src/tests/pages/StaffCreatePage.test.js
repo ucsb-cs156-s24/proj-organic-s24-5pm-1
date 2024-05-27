@@ -61,10 +61,10 @@ describe("StaffCreatePage tests", () => {
         const Staff = {
             id: 1,
             courseId: "2",
-            githubId: "cgaucho",
+            githubId: "3",
         };
 
-        axiosMock.onPost(`/api/courses/staff/post`).reply(202, Staff);
+        axiosMock.onPost(`/api/staff/post`).reply(202, Staff);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -83,7 +83,7 @@ describe("StaffCreatePage tests", () => {
         const submitButton = screen.getByTestId("StaffForm-submit");
 
         fireEvent.change(courseField, { target: { value: 4 } });
-        fireEvent.change(githubField, { target: { value: "cgaucho" } });
+        fireEvent.change(githubField, { target: { value: 5 } });
 
         expect(submitButton).toBeInTheDocument();
 
@@ -95,11 +95,11 @@ describe("StaffCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual(
             {
                 "courseId": "4",
-                "githubId": "cgaucho"
+                "githubId": "5"
             });
 
         expect(mockToast).toBeCalledWith("New staff created - id: 1");
-        expect(mockNavigate).toBeCalledWith({ "to": "/courses/1/staff" });
+        expect(mockNavigate).toBeCalledWith({ "to": "/1/staff" });
 
     });
 

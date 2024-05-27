@@ -58,7 +58,7 @@ function StaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         <Form.Control
                             data-testid="StaffForm-githubId"
                             id="githubId"
-                            type="text"
+                            type="number"
                             isInvalid={Boolean(errors.githubId)}
                             {...register("githubId", { required: true })}
                         />

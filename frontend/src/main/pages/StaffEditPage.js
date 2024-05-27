@@ -11,10 +11,10 @@ export default function StaffEditPage({ storybook = false }) {
     const { data: staff, _error, _status } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            [`/api/courses/staff?id=${id}`],
+            [`/api/staff?id=${id}`],
             {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
                 method: "GET",
-                url: `/api/courses/staff/get`,
+                url: `/api/staff/get`,
                 params: {
                     id
                 }
@@ -23,7 +23,7 @@ export default function StaffEditPage({ storybook = false }) {
 
 
     const objectToAxiosPutParams = (staff) => ({
-        url: "/api/courses/staff/update",
+        url: "/api/staff/update",
         method: "PUT",
         params: {
             id: staff.id,
@@ -40,7 +40,7 @@ export default function StaffEditPage({ storybook = false }) {
         objectToAxiosPutParams,
         { onSuccess },
         // Stryker disable next-line all : hard to set up test for caching
-        [`/api/courses/staff?id=${id}`]
+        [`/api/staff?id=${id}`]
     );
 
     const { isSuccess } = mutation
@@ -50,7 +50,7 @@ export default function StaffEditPage({ storybook = false }) {
     }
 
     if (isSuccess && !storybook) {
-        return <Navigate to="/courses/staff" />
+        return <Navigate to="/staff" />
     }
 
     return (

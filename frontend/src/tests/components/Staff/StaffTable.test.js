@@ -149,7 +149,7 @@ describe("StaffTable tests", () => {
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     fireEvent.click(editButton);
 
-    expect(mockedNavigate).toHaveBeenCalledWith("/courses/staff/edit/1");
+    expect(mockedNavigate).toHaveBeenCalledWith("/staff/edit/1");
   });
 
   test("clicking Delete button calls the callback", () => {
