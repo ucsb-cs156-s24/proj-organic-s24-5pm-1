@@ -31,6 +31,18 @@ describe("CoursesForm tests", () => {
 
     });
 
+    //newly added for mutation
+    test('initializes with an empty array for school options', () => {
+        render(<CoursesForm initialContents={{}} submitAction={jest.fn()} />);
+      
+        // Check that the initial state does not contain "Stryker was here"
+        const listItem = screen.queryByText('Stryker was here');
+        expect(listItem).not.toBeInTheDocument();
+    });
+
+    //to be added for mutation
+    //line 24 in coursesform.js: [] changed to ["Stryker was here"]
+
     test("calls enableEndDateValidation on mount", () => {
         render(<CoursesForm />);
     
