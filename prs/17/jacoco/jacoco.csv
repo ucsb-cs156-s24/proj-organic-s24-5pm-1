@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-organic,edu.ucsb.cs156.organic.interceptors,RoleUserInterceptorAppConfig,0,9,0,0,0,3,0,2,0,2
-organic,edu.ucsb.cs156.organic.interceptors,RoleUserInterceptor,0,99,0,12,0,24,0,10,0,4
 organic,edu.ucsb.cs156.organic.errors,EntityNotFoundException,0,17,0,0,0,3,0,1,0,1
+organic,edu.ucsb.cs156.organic.intercepters,RoleUserInterceptorAppConfig,0,9,0,0,0,3,0,2,0,2
+organic,edu.ucsb.cs156.organic.intercepters,RoleUserInterceptor,0,99,0,12,0,24,0,10,0,4
 organic,edu.ucsb.cs156.organic.entities,UserEmail,0,4,0,0,0,1,0,1,0,1
 organic,edu.ucsb.cs156.organic.entities,User,0,21,0,0,0,1,0,1,0,1
 organic,edu.ucsb.cs156.organic.jobs,TestJob,0,22,0,2,0,7,0,2,0,1
