@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -104,7 +104,26 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,7 +142,7 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,8 +154,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,25 +201,44 @@ export default function HomePage() {
 &nbsp;
     const greeting = getPartOfDayGreeting();
 &nbsp;
-    if (!currentUser || !currentUser.loggedIn) {
-        return (
-            &lt;div data-testid={"HomePage-main-div"}&gt;
-                &lt;BasicLayout&gt;
-                    &lt;h1 data-testid="homePage-title" style={{ fontSize: "75px", borderRadius: "7px", backgroundColor: "white", opacity: ".9" }} className="text-center border-0 my-3"&gt;
-                        {greeting}, cgaucho
-                    &lt;/h1&gt;
-                &lt;/BasicLayout&gt;
-            &lt;/div&gt;
-        );
-    }
+    const renderGreeting = (username) =&gt; (
+        &lt;h1 
+            data-testid="homePage-title" 
+            style={{ 
+                fontSize: "75px", 
+                borderRadius: "7px", 
+                backgroundColor: "white", 
+                opacity: ".9" 
+            }} 
+            className="text-center border-0 my-3"
+        &gt;
+            {greeting}, {username}
+        &lt;/h1&gt;
+    );
 &nbsp;
-    // Stryker disable all : TODO: restructure this code to avoid the need for this disable
+    const renderInfoSection = () =&gt; (
+        &lt;div data-testid="info-section" style={{ padding: "20px", borderRadius: "7px", marginTop: "20px" }}&gt;
+            &lt;h2&gt;About Organic&lt;/h2&gt;
+            &lt;p&gt;
+            Organic is a platform designed to equip students and instructors with a comprehensive suite of tools for efficiently managing GitHub organizations associated with computer science courses.
+            &lt;/p&gt;
+            &lt;p&gt;
+            Users can input detailed course information, including the course name, term, start/end dates, and GitHub organization. Additionally, users can specify their institution's name and abbreviation, as well as the academic quarter or semester they are in. 
+            &lt;/p&gt;
+            &lt;img 
+                src="https://www.startyourlab.com/img/setup/github-organization.svg" 
+                alt="CS156 Project" 
+                style={{ width: "100%", borderRadius: "7px", marginTop: "20px" }}
+            /&gt;
+        &lt;/div&gt;
+    );
+   
+&nbsp;
     return (
         &lt;div data-testid={"HomePage-main-div"}&gt;
             &lt;BasicLayout&gt;
-                &lt;h1 data-testid="homePage-title" style={{ fontSize: "75px", borderRadius: "7px", backgroundColor: "white", opacity: ".9" }} className="text-center border-0 my-3"&gt;
-                    {greeting}, {currentUser.root.user.githubLogin}
-                &lt;/h1&gt;
+                {renderGreeting(currentUser.loggedIn ? currentUser.root.user.githubLogin : "Please Sign In First to Proceed")}
+                {renderInfoSection()}
             &lt;/BasicLayout&gt;
         &lt;/div&gt;
     );
@@ -193,7 +250,7 @@ export default function HomePage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu May 23 2024 18:39:02 GMT-0700 (Pacific Daylight Time)
+                at Mon May 27 2024 14:14:46 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
