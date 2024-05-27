@@ -54,7 +54,7 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
     // allow for roles of ADMIN or INSTRUCTOR but only if the user is a staff member
     // for the course
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN', 'ROLE_INSTRUCTOR')&quot;)
-    @PutMapping(&quot;&quot;)
+    @PutMapping(&quot;/update&quot;)
     public School updateSchool(
             @Parameter(name = &quot;abbrev&quot;) @RequestParam String abbrev,
             @RequestBody @Valid School incoming) {
@@ -111,31 +111,33 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/post&quot;)
     public School postSchool(
-        @Parameter(name=&quot;abbrev&quot;, description=&quot;university domain name&quot;, example=&quot;ucsb&quot;) @RequestParam String abbrev,
-        @Parameter(name=&quot;name&quot;, description=&quot;University name&quot;) @RequestParam String name,
-        @Parameter(name=&quot;termRegex&quot;, description=&quot;Format: Example [WSMF]\\d\\d&quot;) @RequestParam String termRegex,
-        @Parameter(name=&quot;termDescription&quot;, description=&quot;Enter quarter, e.g. F23, W24, S24, M24&quot;) @RequestParam String termDescription,
-        @Parameter(name=&quot;termError&quot;, description=&quot;input error?&quot;) @RequestParam String termError)
+        @Parameter(name = &quot;school&quot;, description=&quot;school in json format&quot;) @RequestBody School school
+        // @Parameter(name=&quot;abbrev&quot;, description=&quot;university domain name&quot;, example=&quot;ucsb&quot;) @RequestParam String abbrev,
+        // @Parameter(name=&quot;name&quot;, description=&quot;University name&quot;) @RequestParam String name,
+        // @Parameter(name=&quot;termRegex&quot;, description=&quot;Format: Example [WSMF]\\d\\d&quot;) @RequestParam String termRegex,
+        // @Parameter(name=&quot;termDescription&quot;, description=&quot;Enter quarter, e.g. F23, W24, S24, M24&quot;) @RequestParam String termDescription,
+        // @Parameter(name=&quot;termError&quot;, description=&quot;input error?&quot;) @RequestParam String termError)
+        )
         {
 
-<span class="fc" id="L121">        School school = School.builder().build();</span>
-<span class="fc" id="L122">        school.setAbbrev(abbrev);</span>
-<span class="fc" id="L123">        school.setName(name);</span>
-<span class="fc" id="L124">        school.setTermRegex(termRegex);</span>
-<span class="fc" id="L125">        school.setTermDescription(termDescription);</span>
-<span class="fc" id="L126">        school.setTermError(termError);</span>
+        // School school = School.builder().build();
+        // school.setAbbrev(abbrev);
+        // school.setName(name);
+        // school.setTermRegex(termRegex);
+        // school.setTermDescription(termDescription);
+        // school.setTermError(termError);
 
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (!termDescription.matches(school.getTermRegex())) {</span>
-<span class="fc" id="L129">            throw new IllegalArgumentException(&quot;Invalid termDescription format. It must follow the pattern &quot; + school.getTermRegex());</span>
+        // if (!school.getTermDescription().matches(school.getTermRegex())) {
+        //     throw new IllegalArgumentException(&quot;Invalid termDescription format. It must follow the pattern &quot; + school.getTermRegex());
+        // }
+
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        if (!school.getAbbrev().equals(school.getAbbrev().toLowerCase())){</span>
+<span class="fc" id="L135">            throw new IllegalArgumentException(&quot;Invalid abbrev format. Abbrev must be all lowercase&quot;);</span>
         }
 
-<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (!abbrev.equals(abbrev.toLowerCase())){</span>
-<span class="fc" id="L133">            throw new IllegalArgumentException(&quot;Invalid abbrev format. Abbrev must be all lowercase&quot;);</span>
-        }
+<span class="fc" id="L138">        School savedSchool = schoolRepository.save(school);</span>
 
-<span class="fc" id="L136">        School savedSchool = schoolRepository.save(school);</span>
-
-<span class="fc" id="L138">        return savedSchool;</span>
+<span class="fc" id="L140">        return savedSchool;</span>
     }
 
 
