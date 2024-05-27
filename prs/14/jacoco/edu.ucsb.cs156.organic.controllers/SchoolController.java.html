@@ -54,7 +54,7 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
     // allow for roles of ADMIN or INSTRUCTOR but only if the user is a staff member
     // for the course
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN', 'ROLE_INSTRUCTOR')&quot;)
-    @PutMapping(&quot;/update&quot;)
+    @PutMapping(&quot;&quot;)
     public School updateSchool(
             @Parameter(name = &quot;abbrev&quot;) @RequestParam String abbrev,
             @RequestBody @Valid School incoming) {
@@ -85,7 +85,7 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
 
     @Operation(summary= &quot;Get a single school by abbreviation&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
-    @GetMapping(&quot;/get&quot;)
+    @GetMapping(&quot;&quot;)
     public School getById(
         @Parameter(name=&quot;abbrev&quot;) @RequestParam String abbrev) {
 <span class="fc" id="L91">        Optional&lt;School&gt; schoolOptional = schoolRepository.findById(abbrev);</span>
@@ -95,7 +95,7 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
 
     @Operation(summary= &quot;Delete a school&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @DeleteMapping(&quot;/delete&quot;)
+    @DeleteMapping(&quot;&quot;)
     public Object deleteSchool(
             @Parameter(name=&quot;abbrev&quot;) @RequestParam String abbrev) {
 <span class="fc" id="L101">                School school = schoolRepository.findById(abbrev)</span>
