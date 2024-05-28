@@ -113,7 +113,7 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
     public School postSchool(
         @Parameter(name = &quot;school&quot;, description=&quot;school in json format&quot;) @RequestBody School school
         )
-        {
+    {
 
 <span class="fc bfc" id="L118" title="All 2 branches covered.">        if (!school.getAbbrev().equals(school.getAbbrev().toLowerCase())){</span>
 <span class="fc" id="L119">            throw new IllegalArgumentException(&quot;Invalid abbrev format. Abbrev must be all lowercase&quot;);</span>

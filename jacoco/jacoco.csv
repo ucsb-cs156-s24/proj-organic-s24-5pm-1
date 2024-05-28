@@ -10,7 +10,7 @@ organic,edu.ucsb.cs156.organic.services.jobs,JobService,0,57,0,0,0,20,0,3,0,3
 organic,edu.ucsb.cs156.organic.services,CurrentUserService,0,3,0,0,0,1,0,1,0,1
 organic,edu.ucsb.cs156.organic.services,GrantedAuthoritiesService,0,21,0,0,0,7,0,3,0,3
 organic,edu.ucsb.cs156.organic.services,SystemInfoService,0,3,0,0,0,1,0,1,0,1
-organic,edu.ucsb.cs156.organic.services,SystemInfoServiceImpl,0,30,0,0,0,10,0,3,0,3
+organic,edu.ucsb.cs156.organic.services,SystemInfoServiceImpl,0,49,0,4,0,13,0,6,0,4
 organic,edu.ucsb.cs156.organic.controllers,StudentsController.Status,0,15,0,0,0,2,0,1,0,1
 organic,edu.ucsb.cs156.organic.controllers,UsersController,0,106,0,4,0,14,0,8,0,6
 organic,edu.ucsb.cs156.organic.controllers,ApiController,0,72,0,0,0,22,0,9,0,9
