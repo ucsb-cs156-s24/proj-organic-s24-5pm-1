@@ -246,4 +246,31 @@ describe("CoursesShowPage tests", () => {
         expect(checkLength).toEqual([courses]);
     });
 
+    test("checkLength should contain courses if courses exists but is empty", () => {
+        const courses = [];
+        let checkLength = courses;
+        if (courses && courses.length !== 0) {
+            checkLength = [courses];
+        } else if (courses) {
+            checkLength = courses;
+        }
+
+        expect(checkLength).toEqual(courses);
+    });
+
+    test("throw a falsy value to courses?", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/courses/get", { params: { id: 17 } }).reply(200, 0);
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <CoursesShowPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        expect(screen.queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+    });
 });
