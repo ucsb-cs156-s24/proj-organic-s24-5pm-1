@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import edu.ucsb.cs156.organic.entities.Course;
 import edu.ucsb.cs156.organic.entities.Staff;
 import edu.ucsb.cs156.organic.entities.User;
 import edu.ucsb.cs156.organic.errors.EntityNotFoundException;
+import edu.ucsb.cs156.organic.repositories.CourseRepository;
 import edu.ucsb.cs156.organic.repositories.StaffRepository;
 import edu.ucsb.cs156.organic.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,9 @@ public class StaffController extends ApiController{
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CourseRepository courseRepository;
 
     @Operation(summary = "List all staff")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -57,6 +62,12 @@ public class StaffController extends ApiController{
                     .courseId(courseId)
                     .githubId(githubId)
                     .build();
+
+        userRepository.findByGithubId(githubId)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, githubId.toString()));
+        
+        courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class, courseId.toString()));
 
         Staff savedStaff = staffRepository.save(staff);
 
@@ -90,6 +101,12 @@ public class StaffController extends ApiController{
 
         staff.setCourseId(courseId);
         staff.setGithubId(githubId);
+        
+        userRepository.findByGithubId(githubId)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, githubId.toString()));
+        
+        courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException(Course.class, courseId.toString()));
 
         staff = staffRepository.save(staff);
         log.info("staff={}", staff);
