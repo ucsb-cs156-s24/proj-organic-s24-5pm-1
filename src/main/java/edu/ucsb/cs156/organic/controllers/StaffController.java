@@ -87,33 +87,6 @@ public class StaffController extends ApiController{
         return staff;
     }
 
-    @Operation(summary = "Update information for a staff member")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PutMapping("")
-    public Staff updateStaff(
-            @Parameter(name = "id") @RequestParam Long id,
-            @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
-            @Parameter(name = "githubId", description = "school abbreviation e.g. UCSB") @RequestParam Integer githubId)
-            throws JsonProcessingException {
-
-        Staff staff = staffRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Staff.class, id.toString()));
-
-        staff.setCourseId(courseId);
-        staff.setGithubId(githubId);
-        
-        userRepository.findByGithubId(githubId)
-                .orElseThrow(() -> new EntityNotFoundException(User.class, githubId.toString()));
-        
-        courseRepository.findById(courseId)
-                .orElseThrow(() -> new EntityNotFoundException(Course.class, courseId.toString()));
-
-        staff = staffRepository.save(staff);
-        log.info("staff={}", staff);
-
-        return staff;
-    }
-
     @Operation(summary = "Delete a staff")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("")
@@ -123,9 +96,6 @@ public class StaffController extends ApiController{
 
         Staff staff = staffRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Staff.class, id.toString()));
-
-        // Check if the current user is a staff member for this course or an admin. If
-        // not, throw AccessDeniedException
 
         staffRepository.delete(staff);
         return staff;

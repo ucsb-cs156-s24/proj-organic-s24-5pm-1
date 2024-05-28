@@ -13,9 +13,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -33,7 +33,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ucsb.cs156.organic.entities.Course;
 import edu.ucsb.cs156.organic.entities.Staff;
+import edu.ucsb.cs156.organic.entities.User;
+import edu.ucsb.cs156.organic.repositories.CourseRepository;
 import edu.ucsb.cs156.organic.repositories.StaffRepository;
 import edu.ucsb.cs156.organic.repositories.UserRepository;
 import edu.ucsb.cs156.organic.services.CurrentUserService;
@@ -53,6 +56,9 @@ public class StaffControllerTests extends ControllerTestCase {
 
     @Autowired
     CurrentUserService userService;
+
+    @MockBean
+    CourseRepository courseRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -170,8 +176,11 @@ public class StaffControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "ADMIN" })
     @Test
-    public void an_admin_user_can_post_a_new_course() throws Exception {
+    public void an_admin_can_post_a_new_staff() throws Exception {
         // arrange
+
+        User user = User.builder().githubId(19506566).githubLogin("GeorgebigG").build();
+
 
         Staff staffBefore = Staff.builder()
                 .githubId(19506566)
@@ -184,10 +193,36 @@ public class StaffControllerTests extends ControllerTestCase {
                 .courseId(1L)
                 .build();
 
+        Course course = Course.builder()
+            .id(1L)
+            .name("CS156")
+            .school("UCSB")
+            .term("F23")
+            .startDate(LocalDateTime.parse("2023-09-01T00:00:00"))
+            .endDate(LocalDateTime.parse("2023-12-31T00:00:00"))
+            .githubOrg("ucsb-cs156-f23")
+            .build();
+
         when(staffRepository.save(eq(staffBefore))).thenReturn(staffAfter);
 
-        // act
+        // Should fail because it can't find the user
         MvcResult response = mockMvc.perform(
+                post("/api/staff?githubId=19506566&courseId=1")
+                        .with(csrf()))
+                .andExpect(status().is(404)).andReturn();
+
+        when(userRepository.findByGithubId(eq(19506566))).thenReturn(Optional.of(user));
+
+        // Should fail because the course doesn't exist
+        response = mockMvc.perform(
+                post("/api/staff?githubId=19506566&courseId=1")
+                        .with(csrf()))
+                .andExpect(status().is(404)).andReturn();
+
+        when(courseRepository.findById(eq(course.getId()))).thenReturn(Optional.of(course));
+
+        // act
+        response = mockMvc.perform(
                 post("/api/staff?githubId=19506566&courseId=1")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
@@ -261,91 +296,6 @@ public class StaffControllerTests extends ControllerTestCase {
             Map<String, Object> json = responseToJson(response);
             assertEquals("Staff with id 15 not found", json.get("message"));
     }
-  
-    // admin cannot update non existing staff
-    @WithMockUser(roles = { "ADMIN" })
-    @Test
-    public void an_admin_user_cannot_update_non_existing_staff() throws Exception {
-        // arrange
-
-        when(staffRepository.findById(eq(42L))).thenReturn(Optional.empty());
-        // act
-
-        MvcResult response = mockMvc.perform(
-                put("/api/staff?id=42&githubId=19506566&courseId=1")
-                                .with(csrf()))
-                .andExpect(status().isNotFound()).andReturn();
-        // assert
-
-        Map<String,String> responseMap = mapper.readValue(response.getResponse().getContentAsString(), new TypeReference<Map<String,String>>(){});
-        Map<String,String> expectedMap = Map.of("message", "Staff with id 42 not found", "type", "EntityNotFoundException");
-        assertEquals(expectedMap, responseMap);
-    }
-
-    @WithMockUser(roles = { "ADMIN" })
-    @Test
-    public void an_admin_user_can_update_a_staff() throws Exception {
-        // arrange
-
-        Staff staffBefore = staff;
-
-        Staff staffAfter = staff2;
-        staffAfter.setCourseId(222l);
-
-        when(staffRepository.findById(eq(staffBefore.getId()))).thenReturn(Optional.of(staffBefore));
-        when(staffRepository.save(eq(staffAfter))).thenReturn(staffAfter);
-
-        String urlTemplate = String.format(
-                "/api/staff?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId());
-        MvcResult response = mockMvc.perform(
-                put(urlTemplate)
-                        .with(csrf()))
-                .andExpect(status().isOk()).andReturn();
-
-        // assert
-        verify(staffRepository, times(1)).save(staffBefore);
-        String expectedJson = mapper.writeValueAsString(staffAfter);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals(expectedJson, responseString);
-    }
-
-    // User cannot update staff at all
-    @WithMockUser(roles = { "USER" })
-    @Test
-    public void a_user_cannot_update_a_staff() throws Exception {
-        // arrange
-
-        Staff staffBefore = Staff.builder()
-                .githubId(19506566)
-                .courseId(1L)
-                .build();
-
-        Staff staffAfter = Staff.builder()
-                .id(222L)
-                .githubId(19506566)
-                .courseId(1L)
-                .build();
-
-        when(staffRepository.findById(eq(staffBefore.getId()))).thenReturn(Optional.of(staffBefore));
-        when(staffRepository.save(eq(staffAfter))).thenReturn(staffAfter);
-
-        // act
-        MvcResult response = mockMvc.perform(
-                put("/api/staff?id=" + staffAfter.getId() +"&githubId=" + staffAfter.getGithubId() + "&courseId=" + staffAfter.getCourseId())
-                        .with(csrf()))
-                .andExpect(status().is(403)).andReturn();
-
-        // assert
-        verify(staffRepository, times(0)).save(staffAfter);
-
-        // verify message is correct
-        Map<String, String> responseMap = mapper.readValue(response.getResponse().getContentAsString(),
-                new TypeReference<Map<String, String>>() {
-                });
-        Map<String, String> expectedMap = Map.of("message", "Access is denied", "type",
-                "AccessDeniedException");
-        assertEquals(expectedMap, responseMap);
-    }
 
     // admin cannot delete non existing staff
     @WithMockUser(roles = { "ADMIN" })
@@ -370,7 +320,7 @@ public class StaffControllerTests extends ControllerTestCase {
     // admin can delete staff
     @WithMockUser(roles = { "ADMIN" })
     @Test
-    public void an_admin_user_can_delete_a_staff() throws Exception {
+    public void an_admin_can_delete_a_staff() throws Exception {
         // arrange
 
         Staff staffBefore = Staff.builder()
