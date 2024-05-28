@@ -49,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
     @PostMapping(&quot;&quot;)
     public Staff postCourse(
             @Parameter(name = &quot;courseId&quot;, description = &quot;course id&quot;) @RequestParam Long courseId,
-            @Parameter(name = &quot;githubId&quot;, description = &quot;school abbreviation e.g. UCSB&quot;) @RequestParam Integer githubId)
+           @Parameter(name = &quot;githubId&quot;, description = &quot;github integer login id (not github username)&quot;) @RequestParam Integer githubId)
             throws JsonProcessingException {
 
 

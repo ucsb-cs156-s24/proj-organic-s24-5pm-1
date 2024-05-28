@@ -86,12 +86,11 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
     @Operation(summary= &quot;Get a single school by abbreviation&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;&quot;)
-
     public School getById(
         @Parameter(name=&quot;abbrev&quot;) @RequestParam String abbrev) {
-<span class="fc" id="L92">        Optional&lt;School&gt; schoolOptional = schoolRepository.findById(abbrev);</span>
-<span class="fc" id="L93">        School school = schoolOptional.orElseThrow(() -&gt; new EntityNotFoundException(School.class, abbrev));</span>
-<span class="fc" id="L94">        return school;</span>
+<span class="fc" id="L91">        Optional&lt;School&gt; schoolOptional = schoolRepository.findById(abbrev);</span>
+<span class="fc" id="L92">        School school = schoolOptional.orElseThrow(() -&gt; new EntityNotFoundException(School.class, abbrev));</span>
+<span class="fc" id="L93">        return school;</span>
     }
 
     @Operation(summary= &quot;Delete a school&quot;)
@@ -99,11 +98,11 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
     @DeleteMapping(&quot;&quot;)
     public Object deleteSchool(
             @Parameter(name=&quot;abbrev&quot;) @RequestParam String abbrev) {
-<span class="fc" id="L102">                School school = schoolRepository.findById(abbrev)</span>
-<span class="fc" id="L103">                .orElseThrow(() -&gt; new EntityNotFoundException(School.class, abbrev));</span>
+<span class="fc" id="L101">                School school = schoolRepository.findById(abbrev)</span>
+<span class="fc" id="L102">                .orElseThrow(() -&gt; new EntityNotFoundException(School.class, abbrev));</span>
 
-<span class="fc" id="L105">        schoolRepository.delete(school);</span>
-<span class="fc" id="L106">        return genericMessage(&quot;School with id %s deleted&quot;.formatted(abbrev));</span>
+<span class="fc" id="L104">        schoolRepository.delete(school);</span>
+<span class="fc" id="L105">        return genericMessage(&quot;School with id %s deleted&quot;.formatted(abbrev));</span>
     }
 
 
@@ -112,31 +111,17 @@ import edu.ucsb.cs156.organic.repositories.UserRepository;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/post&quot;)
     public School postSchool(
-        @Parameter(name=&quot;abbrev&quot;, description=&quot;university domain name&quot;, example=&quot;ucsb&quot;) @RequestParam String abbrev,
-        @Parameter(name=&quot;name&quot;, description=&quot;University name&quot;) @RequestParam String name,
-        @Parameter(name=&quot;termRegex&quot;, description=&quot;Format: Example [WSMF]\\d\\d&quot;) @RequestParam String termRegex,
-        @Parameter(name=&quot;termDescription&quot;, description=&quot;Enter quarter, e.g. F23, W24, S24, M24&quot;) @RequestParam String termDescription,
-        @Parameter(name=&quot;termError&quot;, description=&quot;input error?&quot;) @RequestParam String termError)
-        {
+        @Parameter(name = &quot;school&quot;, description=&quot;school in json format&quot;) @RequestBody School school
+        )
+    {
 
-<span class="fc" id="L122">        School school = School.builder().build();</span>
-<span class="fc" id="L123">        school.setAbbrev(abbrev);</span>
-<span class="fc" id="L124">        school.setName(name);</span>
-<span class="fc" id="L125">        school.setTermRegex(termRegex);</span>
-<span class="fc" id="L126">        school.setTermDescription(termDescription);</span>
-<span class="fc" id="L127">        school.setTermError(termError);</span>
-
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (!termDescription.matches(school.getTermRegex())) {</span>
-<span class="fc" id="L130">            throw new IllegalArgumentException(&quot;Invalid termDescription format. It must follow the pattern &quot; + school.getTermRegex());</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (!school.getAbbrev().equals(school.getAbbrev().toLowerCase())){</span>
+<span class="fc" id="L119">            throw new IllegalArgumentException(&quot;Invalid abbrev format. Abbrev must be all lowercase&quot;);</span>
         }
 
-<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (!abbrev.equals(abbrev.toLowerCase())){</span>
-<span class="fc" id="L134">            throw new IllegalArgumentException(&quot;Invalid abbrev format. Abbrev must be all lowercase&quot;);</span>
-        }
+<span class="fc" id="L122">        School savedSchool = schoolRepository.save(school);</span>
 
-<span class="fc" id="L137">        School savedSchool = schoolRepository.save(school);</span>
-
-<span class="fc" id="L139">        return savedSchool;</span>
+<span class="fc" id="L124">        return savedSchool;</span>
     }
 
 
