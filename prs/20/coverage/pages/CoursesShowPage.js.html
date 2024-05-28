@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -114,13 +114,7 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,11 +123,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,14 +138,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,45 +179,39 @@ export default function CoursesShowPage() {
 &nbsp;
     const { data: courses, error: _error, status: _status } =
         useBackend(
-            [`/api/courses?id=${id}`],
+            [],
             {
                 method: "GET", url: "/api/courses/get",
                 params: {
                     id
                 },
             },
-    []
+            []
         );
-        let checkLength = [];
-        if (courses &amp;&amp; courses.length !== 0) {
-            checkLength = [courses];
-        } else if (courses) {
-            checkLength = courses;
-        }
 &nbsp;
     return (
         &lt;BasicLayout&gt;
             &lt;div className="pt-2"&gt;
                 &lt;h1&gt;Individual Course Information&lt;/h1&gt;
-                &lt;CoursesTable courses={checkLength} currentUser={currentUser} /&gt;
+                &lt;CoursesTable courses={courses ? [courses] : []} currentUser={currentUser} /&gt;
                 &lt;br&gt;&lt;/br&gt;
                 &lt;p&gt;As an admin or instructor, you can navigate from the /courses page to a specific page for each course. This allows you to see a page dedicated to your specific course, which includes functionalities such as uploading the student roster, adding students or staff, and other course-related tasks. &lt;/p&gt;
                 &lt;br&gt;&lt;/br&gt;
                 {/* Course Roster Upload Link */}
-              &lt;p&gt;
-                &lt;strong&gt;Course Roster Upload:&lt;/strong&gt;
-                &lt;a href={`/courses/${id}/roster-upload`}&gt;Upload Roster&lt;/a&gt;
-              &lt;/p&gt;
-              {/* Staff Roster */}
-              &lt;p&gt;
-                &lt;strong&gt;Staff Roster:&lt;/strong&gt;
-                &lt;a href={`/courses/${id}/staff-roster`}&gt;View Staff&lt;/a&gt;
-              &lt;/p&gt;
-              {/* Student Roster */}
-              &lt;p&gt;
-                &lt;strong&gt;Student Roster:&lt;/strong&gt;
-                &lt;a href={`/courses/${id}/student-roster`}&gt;View Students&lt;/a&gt;
-              &lt;/p&gt;
+                &lt;p&gt;
+                    &lt;strong&gt;Course Roster Upload:&lt;/strong&gt;
+                    &lt;a href={`/courses/${id}/roster-upload`}&gt;Upload Roster&lt;/a&gt;
+                &lt;/p&gt;
+                {/* Staff Roster */}
+                &lt;p&gt;
+                    &lt;strong&gt;Staff Roster:&lt;/strong&gt;
+                    &lt;a href={`/courses/${id}/staff-roster`}&gt;View Staff&lt;/a&gt;
+                &lt;/p&gt;
+                {/* Student Roster */}
+                &lt;p&gt;
+                    &lt;strong&gt;Student Roster:&lt;/strong&gt;
+                    &lt;a href={`/courses/${id}/student-roster`}&gt;View Students&lt;/a&gt;
+                &lt;/p&gt;
             &lt;/div&gt;
         &lt;/BasicLayout&gt;
     );
@@ -241,7 +223,7 @@ export default function CoursesShowPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue May 28 2024 13:12:06 GMT-0700 (Pacific Daylight Time)
+                at Tue May 28 2024 14:33:03 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
