@@ -49,7 +49,7 @@ public class StaffController extends ApiController{
     @PostMapping("")
     public Staff postCourse(
             @Parameter(name = "courseId", description = "course id") @RequestParam Long courseId,
-            @Parameter(name = "githubId", description = "school abbreviation e.g. UCSB") @RequestParam Integer githubId)
+           @Parameter(name = "githubId", description = "github integer login id (not github username)") @RequestParam Integer githubId)
             throws JsonProcessingException {
 
 
