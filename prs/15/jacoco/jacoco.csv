@@ -22,4 +22,4 @@ organic,edu.ucsb.cs156.organic.controllers,ApiController,0,72,0,0,0,22,0,9,0,9
 organic,edu.ucsb.cs156.organic.controllers,CSRFController,0,5,0,0,0,2,0,2,0,2
 organic,edu.ucsb.cs156.organic.controllers,JobsController,0,55,0,4,0,12,0,6,0,4
 organic,edu.ucsb.cs156.organic.controllers,SystemInfoController,0,7,0,0,0,2,0,2,0,2
-organic,edu.ucsb.cs156.organic.controllers,StaffController,0,108,0,0,0,25,0,10,0,10
+organic,edu.ucsb.cs156.organic.controllers,StaffController,0,104,0,0,0,22,0,10,0,10

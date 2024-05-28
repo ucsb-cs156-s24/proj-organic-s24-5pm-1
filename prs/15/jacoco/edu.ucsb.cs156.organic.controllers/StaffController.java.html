@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import edu.ucsb.cs156.organic.entities.Course;
 import edu.ucsb.cs156.organic.entities.Staff;
 import edu.ucsb.cs156.organic.entities.User;
 import edu.ucsb.cs156.organic.errors.EntityNotFoundException;
+import edu.ucsb.cs156.organic.repositories.CourseRepository;
 import edu.ucsb.cs156.organic.repositories.StaffRepository;
 import edu.ucsb.cs156.organic.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,8 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = &quot;Staff&quot;)
 @RequestMapping(&quot;/api/staff&quot;)
 @RestController
-<span class="fc" id="L28">@Slf4j</span>
-<span class="fc" id="L29">public class StaffController extends ApiController{</span>
+<span class="fc" id="L30">@Slf4j</span>
+<span class="fc" id="L31">public class StaffController extends ApiController{</span>
 
     @Autowired
     StaffRepository staffRepository;
@@ -34,14 +36,17 @@ import lombok.extern.slf4j.Slf4j;
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CourseRepository courseRepository;
+
     @Operation(summary = &quot;List all staff&quot;)
     @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;Staff&gt; allCourses() {
-<span class="fc" id="L41">        User u = getCurrentUser().getUser();</span>
-<span class="fc" id="L42">        log.info(&quot;u={}&quot;, u);</span>
+<span class="fc" id="L46">        User u = getCurrentUser().getUser();</span>
+<span class="fc" id="L47">        log.info(&quot;u={}&quot;, u);</span>
 
-<span class="fc" id="L44">        return staffRepository.findAll();</span>
+<span class="fc" id="L49">        return staffRepository.findAll();</span>
     }
 
     @Operation(summary = &quot;Create a new staff&quot;)
@@ -53,14 +58,20 @@ import lombok.extern.slf4j.Slf4j;
             throws JsonProcessingException {
 
 
-<span class="fc" id="L56">        Staff staff = Staff.builder()</span>
-<span class="fc" id="L57">                    .courseId(courseId)</span>
-<span class="fc" id="L58">                    .githubId(githubId)</span>
-<span class="fc" id="L59">                    .build();</span>
+<span class="fc" id="L61">        Staff staff = Staff.builder()</span>
+<span class="fc" id="L62">                    .courseId(courseId)</span>
+<span class="fc" id="L63">                    .githubId(githubId)</span>
+<span class="fc" id="L64">                    .build();</span>
 
-<span class="fc" id="L61">        Staff savedStaff = staffRepository.save(staff);</span>
+<span class="fc" id="L66">        userRepository.findByGithubId(githubId)</span>
+<span class="fc" id="L67">                .orElseThrow(() -&gt; new EntityNotFoundException(User.class, githubId.toString()));</span>
+        
+<span class="fc" id="L69">        courseRepository.findById(courseId)</span>
+<span class="fc" id="L70">                .orElseThrow(() -&gt; new EntityNotFoundException(Course.class, courseId.toString()));</span>
 
-<span class="fc" id="L63">        return savedStaff;</span>
+<span class="fc" id="L72">        Staff savedStaff = staffRepository.save(staff);</span>
+
+<span class="fc" id="L74">        return savedStaff;</span>
     }
 
     @Operation(summary = &quot;Get Staff&quot;)
@@ -70,31 +81,10 @@ import lombok.extern.slf4j.Slf4j;
             @Parameter(name = &quot;id&quot;) @RequestParam Long id)
             throws JsonProcessingException {
 
-<span class="fc" id="L73">        Staff staff = staffRepository.findById(id)</span>
-<span class="fc" id="L74">                .orElseThrow(() -&gt; new EntityNotFoundException(Staff.class, id.toString()));</span>
+<span class="fc" id="L84">        Staff staff = staffRepository.findById(id)</span>
+<span class="fc" id="L85">                .orElseThrow(() -&gt; new EntityNotFoundException(Staff.class, id.toString()));</span>
 
-<span class="fc" id="L76">        return staff;</span>
-    }
-
-    @Operation(summary = &quot;Update information for a staff member&quot;)
-    @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN')&quot;)
-    @PutMapping(&quot;&quot;)
-    public Staff updateStaff(
-            @Parameter(name = &quot;id&quot;) @RequestParam Long id,
-            @Parameter(name = &quot;courseId&quot;, description = &quot;course id&quot;) @RequestParam Long courseId,
-            @Parameter(name = &quot;githubId&quot;, description = &quot;school abbreviation e.g. UCSB&quot;) @RequestParam Integer githubId)
-            throws JsonProcessingException {
-
-<span class="fc" id="L88">        Staff staff = staffRepository.findById(id)</span>
-<span class="fc" id="L89">                .orElseThrow(() -&gt; new EntityNotFoundException(Staff.class, id.toString()));</span>
-
-<span class="fc" id="L91">        staff.setCourseId(courseId);</span>
-<span class="fc" id="L92">        staff.setGithubId(githubId);</span>
-
-<span class="fc" id="L94">        staff = staffRepository.save(staff);</span>
-<span class="fc" id="L95">        log.info(&quot;staff={}&quot;, staff);</span>
-
-<span class="fc" id="L97">        return staff;</span>
+<span class="fc" id="L87">        return staff;</span>
     }
 
     @Operation(summary = &quot;Delete a staff&quot;)
@@ -104,14 +94,11 @@ import lombok.extern.slf4j.Slf4j;
             @Parameter(name = &quot;id&quot;) @RequestParam Long id)
             throws JsonProcessingException {
 
-<span class="fc" id="L107">        Staff staff = staffRepository.findById(id)</span>
-<span class="fc" id="L108">                .orElseThrow(() -&gt; new EntityNotFoundException(Staff.class, id.toString()));</span>
+<span class="fc" id="L97">        Staff staff = staffRepository.findById(id)</span>
+<span class="fc" id="L98">                .orElseThrow(() -&gt; new EntityNotFoundException(Staff.class, id.toString()));</span>
 
-        // Check if the current user is a staff member for this course or an admin. If
-        // not, throw AccessDeniedException
-
-<span class="fc" id="L113">        staffRepository.delete(staff);</span>
-<span class="fc" id="L114">        return staff;</span>
+<span class="fc" id="L100">        staffRepository.delete(staff);</span>
+<span class="fc" id="L101">        return staff;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
