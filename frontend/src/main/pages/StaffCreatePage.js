@@ -18,7 +18,7 @@ export default function StaffCreatePage({storybook=false}) {
     });
 
     const onSuccess = (staff) => {
-        toast(`New staff created - id: ${staff.id}`);
+        toast(`New staff added - id: ${staff.id}`);
     }
 
     const mutation = useBackendMutation(
