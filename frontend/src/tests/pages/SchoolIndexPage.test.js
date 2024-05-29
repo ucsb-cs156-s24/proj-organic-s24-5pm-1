@@ -110,7 +110,7 @@ describe("SchoolIndexPage tests", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/schools/all").reply(200, schoolsFixtures.threeSchools);
-        axiosMock.onDelete("/api/schools/delete").reply(200, "School with id ucsb was deleted");
+        axiosMock.onDelete("/api/schools").reply(200, "School with id ucsb was deleted");
 
         // act
         render(

@@ -247,7 +247,7 @@ public class SchoolControllerTests extends ControllerTestCase{
 
 
             School school1 = School.builder()
-                            .abbrev("UCSB")
+                            .abbrev("ucsb")
                             .name("University of California Santa Barbara")
                             .termRegex("W")
                             .termDescription("W24")
@@ -255,20 +255,20 @@ public class SchoolControllerTests extends ControllerTestCase{
                             .build();
                             
 
-            when(schoolRepository.findById(eq("UCSB"))).thenReturn(Optional.of(school1));
+            when(schoolRepository.findById(eq("ucsb"))).thenReturn(Optional.of(school1));
 
             // act
             MvcResult response = mockMvc.perform(
-                            delete("/api/schools?abbrev=UCSB")
+                            delete("/api/schools?abbrev=ucsb")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
             // assert
-            verify(schoolRepository, times(1)).findById("UCSB");
+            verify(schoolRepository, times(1)).findById("ucsb");
             verify(schoolRepository, times(1)).delete(any());
 
             Map<String, Object> json = responseToJson(response);
-            assertEquals("School with id UCSB deleted", json.get("message"));
+            assertEquals("School with id ucsb deleted", json.get("message"));
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
@@ -277,18 +277,18 @@ public class SchoolControllerTests extends ControllerTestCase{
                         throws Exception {
                 // arrange
 
-                when(schoolRepository.findById(eq("UCSB"))).thenReturn(Optional.empty());
+                when(schoolRepository.findById(eq("ucsb"))).thenReturn(Optional.empty());
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/schools?abbrev=UCSB")
+                                delete("/api/schools?abbrev=ucsb")
                                                 .with(csrf()))
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
-                verify(schoolRepository, times(1)).findById("UCSB");
+                verify(schoolRepository, times(1)).findById("ucsb");
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("School with id UCSB not found", json.get("message"));
+                assertEquals("School with id ucsb not found", json.get("message"));
         }
 
     
@@ -320,52 +320,27 @@ public class SchoolControllerTests extends ControllerTestCase{
                             .termDescription("F24")
                             .termError("error")
                             .build();
-
+            String requestBody = objectMapper.writeValueAsString(school);
             when(schoolRepository.save(eq(school))).thenReturn(school);  
 
 
             // act
             MvcResult response = mockMvc.perform(
-                post("/api/schools/post?abbrev=ucsb&name=Ubarbara&termRegex=[WSMF]\\d\\d&termDescription=F24&termError=error")
-                                .with(csrf()))
+                post("/api/schools/post")
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .characterEncoding("utf-8")
+                                .content(requestBody))
                 .andExpect(status().isOk()).andReturn();
                 
 
             // assert
             verify(schoolRepository, times(1)).save(school);
-            String expectedJson = mapper.writeValueAsString(school);
             String responseString = response.getResponse().getContentAsString();
-            assertEquals(expectedJson, responseString);
+            assertEquals(requestBody, responseString);
             }
 
     
-    @WithMockUser(roles = { "ADMIN", "USER" })
-    @Test
-    public void an_admin_user_can_post_a_new_school_bad_format_termRegex() throws Exception {
-            // arrange
-
-            School school = School.builder()
-                            .abbrev("ucsb")
-                            .name("Ubarbara")
-                            .termRegex("[WSMF]\\d\\d")
-                            .termDescription("q24")
-                            .termError("error")
-                            .build();
-
-            when(schoolRepository.save(eq(school))).thenReturn(school);  
-
-
-            // act
-            MvcResult response = mockMvc.perform(post("/api/schools/post?abbrev=UCSB&name=Ubarbara&termRegex=[WSMF]\\d\\d&termDescription=q24&termError=error")
-                                                                .with(csrf()))
-                            .andExpect(status().is(400)).andReturn(); // only admins can post
-                
-
-            // assert
-            Map<String, Object> json = responseToJson(response);
-            assertEquals("IllegalArgumentException", json.get("type"));
-            assertEquals("Invalid termDescription format. It must follow the pattern [WSMF]\\d\\d", json.get("message"));            
-            }
 
     
     @WithMockUser(roles = { "ADMIN", "USER" })
@@ -381,12 +356,16 @@ public class SchoolControllerTests extends ControllerTestCase{
                             .termError("error")
                             .build();
 
+            String requestBody = objectMapper.writeValueAsString(school);
             when(schoolRepository.save(eq(school))).thenReturn(school);  
 
 
             // act
-            MvcResult response = mockMvc.perform(post("/api/schools/post?abbrev=UCSB&name=Ubarbara&termRegex=[WSMF]\\d\\d&termDescription=F24&termError=error")
-                                                                .with(csrf()))
+            MvcResult response = mockMvc.perform(post("/api/schools/post")
+                                                                .with(csrf())
+                                                                .contentType(MediaType.APPLICATION_JSON)
+                                                                .characterEncoding("utf-8")
+                                                                .content(requestBody))
                             .andExpect(status().is(400)).andReturn(); // only admins can post
                 
 

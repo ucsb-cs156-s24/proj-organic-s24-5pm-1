@@ -14,4 +14,7 @@ public class SystemInfo {
   private Boolean springH2ConsoleEnabled;
   private Boolean showSwaggerUILink;
   private String sourceRepo;
+  private String commitMessage;
+  private String commitId;
+  private String githubUrl; 
 }
