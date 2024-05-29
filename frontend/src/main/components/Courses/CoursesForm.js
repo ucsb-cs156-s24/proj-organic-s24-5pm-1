@@ -95,7 +95,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                                 <option 
                                 key={index} 
                                 value={school}
-                                selected={school == initialContents?.school ? true : false}>
+                                selected={school === initialContents?.school ? true : false}>
                                     {school}
                                 </option>
                             ))}
