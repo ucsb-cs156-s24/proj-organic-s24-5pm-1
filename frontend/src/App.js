@@ -44,7 +44,7 @@ function App() {
       <Route path="/courses/create" element={<CoursesCreatePage />} />
       <Route path="/courses" element={<CourseIndexPage />} />
       <Route path="/courses/edit/:id" element={<CoursesEditPage />} />
-      <Route path="/staff/create" element={<StaffCreatePage />} />
+      <Route path="/:id/staff/create" element={<StaffCreatePage />} />
     </>
   ) : null;
 

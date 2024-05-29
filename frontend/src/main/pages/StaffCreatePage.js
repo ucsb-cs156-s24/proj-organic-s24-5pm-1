@@ -9,8 +9,8 @@ export default function StaffCreatePage({storybook=false}) {
     let { courseId } = useParams();
 
     const objectToAxiosParams = (staff) => ({
-        url: "/api/staff/post",
-        method: "POST",
+        url: "/api/courses/addStaff",
+        method: "ADDSTAFF",
         params: {
         courseId: staff.courseId,
         githubId: staff.githubId
