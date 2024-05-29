@@ -21,8 +21,10 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                 const nameArray = jsonData.map(item => item.name);
                 setSchoolOptions(nameArray);
             })
-    }, []); // Run only once after component mounts
+    }, 
     // Stryker disable all
+    []); 
+    // Run only once after component mounts
     const {
         register,
         formState: { errors },
