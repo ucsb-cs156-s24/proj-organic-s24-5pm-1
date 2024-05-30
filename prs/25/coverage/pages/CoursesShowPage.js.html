@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Jobs/TestJobForm.js</title>
+    <title>Code coverage report for pages/CoursesShowPage.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Jobs</a> TestJobForm.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">pages</a> CoursesShowPage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -116,19 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,17 +125,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,75 +169,59 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import ShowTable from 'main/components/Courses/ShowTable';
+import { useBackend } from 'main/utils/useBackend';
+import { useCurrentUser } from 'main/utils/currentUser';
 &nbsp;
-function TestJobForm({ submitAction }) {
+export default function CoursesShowPage() {
+    let { id } = useParams();
+    const { data: currentUser } = useCurrentUser();
 &nbsp;
- const defaultValues = {
-    fail: false,
-    sleepMs: 1000
-};
+    const { data: courses, error: _error, status: _status } =
+        // Stryker disable all 
+        useBackend(
+            [],
+            {
+                method: "GET", url: "/api/courses/get",
+                params: {
+                    id
+                },
+            },
+            []
+        );
+         // Stryker restore all
 &nbsp;
-  // Stryker disable all
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm(
-    { defaultValues: defaultValues }
-  );
-  // Stryker restore all
-&nbsp;
-  const testid = "TestJobForm";
-&nbsp;
-  return (
-    &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
-      
-      &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="fail"&gt;Fail? (if checked, job will fail, to test error handling)&lt;/Form.Label&gt;
-        &lt;Form.Check 
-          data-testid={`${testid}-fail`}
-          type="checkbox"
-          id="fail"
-          {...register("fail")}
-        /&gt;
-      &lt;/Form.Group&gt;
-&nbsp;
-      &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="sleepMs"&gt;Sleep (milliseconds)&lt;/Form.Label&gt;
-        &lt;Form.Control
-          id="sleepMs"
-          data-testid={`${testid}-sleepMs`}
-          type="number"
-          step="100"
-          isInvalid={!!errors.sleepMs}
-          {...register("sleepMs", {
-            required: "sleepMs is required (0 is ok)",
-            min: { value: 0, message: "sleepMs must be positive" },
-            max: { value: 60000, message: "sleepMs must be ≤ 60000" },
-          })}
-        /&gt;
-        &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.sleepMs?.message}
-        &lt;/Form.Control.Feedback&gt;
-      &lt;/Form.Group&gt;
-&nbsp;
-      &lt;Button type="submit" data-testid="TestJobForm-Submit-Button"&gt;Submit&lt;/Button&gt;
-    &lt;/Form&gt;
-  );
+    return (
+        &lt;BasicLayout&gt;
+            &lt;div className="pt-2"&gt;
+                &lt;h1&gt;Individual Course Information&lt;/h1&gt;
+                &lt;ShowTable courses={[courses]} currentUser={currentUser} /&gt;
+                &lt;br&gt;&lt;/br&gt;
+                &lt;p&gt;As an admin or instructor, you can navigate from the main courses page to a specific page for each course. This allows you to see a page dedicated to your specific course, which includes functionalities such as uploading the student roster, adding students or staff, and other course-related tasks. &lt;/p&gt;
+                &lt;br&gt;&lt;/br&gt;
+                {/* Course Roster Upload Link */}
+                &lt;p&gt;
+                    &lt;strong&gt;Course Roster:&lt;/strong&gt;
+                    &lt;p&gt;Upload Roster&lt;/p&gt;
+                &lt;/p&gt;
+                {/* Staff Roster */}
+                &lt;p&gt;
+                    &lt;strong&gt;Staff Roster:&lt;/strong&gt;
+                    &lt;p&gt;View Staff&lt;/p&gt;
+                &lt;/p&gt;
+                {/* Student Roster */}
+                &lt;p&gt;
+                    &lt;strong&gt;Student Roster:&lt;/strong&gt;
+                    &lt;p&gt;View Students&lt;/p&gt;
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/BasicLayout&gt;
+    );
 }
-&nbsp;
-export default TestJobForm;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -252,14 +231,14 @@ export default TestJobForm;
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at Thu May 30 2024 15:43:40 GMT-0700 (Pacific Daylight Time)
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     
