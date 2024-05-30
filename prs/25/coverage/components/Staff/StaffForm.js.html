@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Courses/AddCourseStaffForm.js</title>
+    <title>Code coverage report for components/Staff/StaffForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Courses</a> AddCourseStaffForm.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Staff</a> StaffForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -149,17 +149,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,15 +159,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,15 +224,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,9 +237,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 &nbsp;
-function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function StaffForm({ initialContents, submitAction, buttonLabel = "Add" }) {
 &nbsp;
     // Stryker disable all
     const {
@@ -270,8 +249,6 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
         { defaultValues: initialContents || {}, }
     );
     // Stryker restore all
-&nbsp;
-    const navigate = useNavigate();
 &nbsp;
     return (
 &nbsp;
@@ -284,7 +261,7 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                         &lt;Form.Group className="mb-3" &gt;
                             &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
                             &lt;Form.Control
-                                data-testid="AddCourseStaffForm-id"
+                                data-testid="StaffForm-id"
                                 id="id"
                                 type="text"
                                 {...register("id")}
@@ -301,9 +278,9 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                     &lt;Form.Group className="mb-3" &gt;
                         &lt;Form.Label htmlFor="courseId"&gt;courseId&lt;/Form.Label&gt;
                         &lt;Form.Control
-                            data-testid="AddCourseStaffForm-courseId"
+                            data-testid="StaffForm-courseId"
                             id="courseId"
-                            type="text"
+                            type="number"
                             isInvalid={Boolean(errors.courseId)}
                             {...register("courseId", { required: true })}
                         /&gt;
@@ -314,16 +291,16 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                 &lt;/Col&gt;
                 &lt;Col&gt;
                     &lt;Form.Group className="mb-3" &gt;
-                        &lt;Form.Label htmlFor="githubId"&gt;Github Id&lt;/Form.Label&gt;
+                        &lt;Form.Label htmlFor="githubLogin"&gt;Github Login&lt;/Form.Label&gt;
                         &lt;Form.Control
-                            data-testid="AddCourseStaffForm-githubId"
-                            id="githubId"
+                            data-testid="StaffForm-githubLogin"
+                            id="githubLogin"
                             type="text"
-                            isInvalid={Boolean(errors.githubId)}
-                            {...register("githubId", { required: true })}
+                            isInvalid={Boolean(errors.githubLogin)}
+                            {...register("githubLogin", { required: true })}
                         /&gt;
                         &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.githubId &amp;&amp; 'githubId is required. '}
+                            {errors.githubLogin &amp;&amp; 'githubLogin is required. '}
                         &lt;/Form.Control.Feedback&gt;
                     &lt;/Form.Group&gt;
                 &lt;/Col&gt;
@@ -333,16 +310,9 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
                 &lt;Col&gt;
                     &lt;Button
                         type="submit"
-                        data-testid="AddCourseStaffForm-submit"
+                        data-testid="StaffForm-submit"
                     &gt;
                         {buttonLabel}
-                    &lt;/Button&gt;
-                    &lt;Button
-                        variant="Secondary"
-                        onClick={() =&gt; navigate(-1)}
-                        data-testid="AddCourseStaffForm-cancel"
-                    &gt;
-                        Cancel
                     &lt;/Button&gt;
                 &lt;/Col&gt;
             &lt;/Row&gt;
@@ -351,7 +321,7 @@ function AddCourseStaffForm({ initialContents, submitAction, buttonLabel = "Crea
     )
 }
 &nbsp;
-export default AddCourseStaffForm</pre></td></tr></table></pre>
+export default StaffForm</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
