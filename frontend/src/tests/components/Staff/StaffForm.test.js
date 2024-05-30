@@ -51,7 +51,7 @@ describe("StaffForm tests", () => {
 
         await screen.findByText(/courseId is required./);
         expect(screen.getByText(/courseId is required./)).toBeInTheDocument();
-        expect(screen.getByText(/githubId is required./)).toBeInTheDocument();
+        expect(screen.getByText(/githubLogin is required./)).toBeInTheDocument();
 
     });
 
@@ -68,7 +68,7 @@ describe("StaffForm tests", () => {
         await screen.findByTestId("StaffForm-courseId");
 
         const courseField = screen.getByTestId("StaffForm-courseId");
-        const githubField = screen.getByTestId("StaffForm-githubId");
+        const githubField = screen.getByTestId("StaffForm-githubLogin");
         const submitButton = screen.getByTestId("StaffForm-submit");
 
         fireEvent.change(courseField, { target: { value: "1" } });

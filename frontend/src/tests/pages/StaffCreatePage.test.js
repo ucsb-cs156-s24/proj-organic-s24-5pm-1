@@ -61,7 +61,7 @@ describe("StaffCreatePage tests", () => {
         const Staff = {
             id: 1,
             courseId: "2",
-            githubId: "cgaucho",
+            githubLogin: "cgaucho",
         };
 
         axiosMock.onPost(`/api/courses/addStaff`).reply(202, Staff);
@@ -79,7 +79,7 @@ describe("StaffCreatePage tests", () => {
         });
 
         const courseField = screen.getByTestId("StaffForm-courseId");
-        const githubField = screen.getByTestId("StaffForm-githubId");
+        const githubField = screen.getByTestId("StaffForm-githubLogin");
         const submitButton = screen.getByTestId("StaffForm-submit");
 
         fireEvent.change(courseField, { target: { value: 4 } });
@@ -95,7 +95,7 @@ describe("StaffCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual(
             {
                 "courseId": "4",
-                "githubId": "cgaucho"
+                "githubLogin": "cgaucho"
             });
 
         expect(mockToast).toBeCalledWith("New staff added - id: 1");

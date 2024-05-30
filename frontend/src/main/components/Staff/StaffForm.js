@@ -54,16 +54,16 @@ function StaffForm({ initialContents, submitAction, buttonLabel = "Add" }) {
                 </Col>
                 <Col>
                     <Form.Group className="mb-3" >
-                        <Form.Label htmlFor="githubId">Github Id</Form.Label>
+                        <Form.Label htmlFor="githubLogin">Github Login</Form.Label>
                         <Form.Control
-                            data-testid="StaffForm-githubId"
-                            id="githubId"
+                            data-testid="StaffForm-githubLogin"
+                            id="githubLogin"
                             type="text"
-                            isInvalid={Boolean(errors.githubId)}
-                            {...register("githubId", { required: true })}
+                            isInvalid={Boolean(errors.githubLogin)}
+                            {...register("githubLogin", { required: true })}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.githubId && 'githubId is required. '}
+                            {errors.githubLogin && 'githubLogin is required. '}
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Col>

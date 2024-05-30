@@ -10,10 +10,10 @@ export default function StaffCreatePage({storybook=false}) {
 
     const objectToAxiosParams = (staff) => ({
         url: "/api/courses/addStaff",
-        method: "ADDSTAFF",
+        method: "POST",
         params: {
         courseId: staff.courseId,
-        githubId: staff.githubId
+        githubLogin: staff.githubLogin
         }
     });
 
@@ -25,7 +25,7 @@ export default function StaffCreatePage({storybook=false}) {
         objectToAxiosParams,
         { onSuccess }, 
         // Stryker disable next-line all : hard to set up test for caching
-        ["/api/staff/all"] // mutation makes this key stale so that pages relying on it reload
+        ["/api/courses/getStaff"] // mutation makes this key stale so that pages relying on it reload
         );
 
     const { isSuccess } = mutation
