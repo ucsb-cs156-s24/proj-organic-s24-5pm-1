@@ -71,17 +71,12 @@ public abstract class ApiController {
     public static ObjectMapper mapperThatIgnoresMockitoMocks() {
 <span class="fc" id="L72">        ObjectMapper mapper = new ObjectMapper();</span>
 <span class="fc" id="L73">        mapper.registerModule(new JavaTimeModule());</span>
-<span class="fc" id="L74">        mapper.setAnnotationIntrospector(new JacksonAnnotationIntrospector() {</span>
-            @Override
-            public boolean hasIgnoreMarker(final AnnotatedMember m) {
-<span class="fc bfc" id="L77" title="All 4 branches covered.">                return super.hasIgnoreMarker(m) || m.getName().contains(&quot;Mockito&quot;);</span>
-            }
-        });
-<span class="fc" id="L80">        return mapper;</span>
+<span class="fc" id="L74">        mapper.setAnnotationIntrospector(new JacksonAnnotationIntrospector());</span>
+<span class="fc" id="L75">        return mapper;</span>
     }
 
     protected Object genericMessage(String message) {
-<span class="fc" id="L84">        return Map.of(&quot;message&quot;, message);</span>
+<span class="fc" id="L79">        return Map.of(&quot;message&quot;, message);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -30,8 +30,8 @@ import org.springframework.security.access.AccessDeniedException;
 
 import java.time.LocalDateTime;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 import java.util.Optional;
 
