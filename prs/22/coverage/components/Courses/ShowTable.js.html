@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/School/SchoolTable.js</title>
+    <title>Code coverage report for components/Courses/ShowTable.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/School</a> SchoolTable.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Courses</a> ShowTable.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -124,38 +124,24 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,78 +164,89 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
- import OurTable, { ButtonColumn } from "main/components/OurTable"
- import { useBackendMutation } from "main/utils/useBackend";
- import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/components/Utils/SchoolUtils" 
- import { useNavigate } from "react-router-dom";
- import { hasRole } from "main/utils/currentUser";
+import OurTable, { ButtonColumn } from "main/components/OurTable"
+import { useNavigate } from "react-router-dom";
+import { hasRole } from "main/utils/currentUser";
+&nbsp;
+export default function ShowTable({ courses, currentUser }) {
+&nbsp;
+    const navigate = useNavigate();
+&nbsp;
+    const staffCallback = (cell) =&gt; {
+        navigate(`/courses/${cell.row.values.id}/staff`);
+    };
+&nbsp;
+    const editCallback = (cell) =&gt; {
+        navigate(`/courses/edit/${cell.row.values.id}`);
+    };
+&nbsp;
+    const columns = [
+        {
+            Header: 'id',
+            accessor: 'id',
+        },
+        {
+            Header: 'Name',
+            accessor: 'name',
+        },
+        {
+            Header: 'School',
+            accessor: 'school',
+        },
+        {
+            Header: 'Term',
+            accessor: 'term',
+        },
+        {
+            Header: 'StartDate',
+            accessor: 'startDate',
+        },
+        {
+            Header: 'EndDate',
+            accessor: 'endDate',
+        },
+        {
+            Header: 'GitHub Org',
+            accessor: 'githubOrg',
+        },
 &nbsp;
 &nbsp;
-  //FIXME: SchoolTable or should it be plural? Everything is singular except reference to the api fyi
+    ];
 &nbsp;
- export default function SchoolTable({ school, currentUser }) {
+    if (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_INSTRUCTOR")) {
+        columns.push(ButtonColumn("Staff", "primary", staffCallback, "ShowTable"));
+        columns.push(ButtonColumn("Edit", "#AAFF00", editCallback, "ShowTable"));
+    }
 &nbsp;
-     const navigate = useNavigate();
-&nbsp;
-     const editCallback = (cell) =&gt; {
-         navigate(`/schools/edit/${cell.row.values.abbrev}`);
-     };
-&nbsp;
-     // Stryker disable all : hard to test for query caching
-&nbsp;
-     const deleteMutation = useBackendMutation(
-         cellToAxiosParamsDelete,
-         { onSuccess: onDeleteSuccess },
-         ["/api/schools/all"]
-     );
-     // Stryker restore all 
-&nbsp;
-     // Stryker disable next-line all : TODO try to make a good test for this
-     const deleteCallback = async (cell) =&gt; { deleteMutation.mutate(cell); }
-&nbsp;
-     const columns = [
-         {
-             Header: 'Abbrev',
-             accessor: 'abbrev',
-         },
-         {
-             Header: 'Name',
-             accessor: 'name',
-         },
-         {
-             Header: 'TermRegex',
-             accessor: 'termRegex',
-         },
-         {
-             Header: 'TermDescription',
-             accessor: 'termDescription',
-         },
-         {
-             Header: 'TermError',
-             accessor: 'termError',
-         },
-     ];
-&nbsp;
-     if (hasRole(currentUser, "ROLE_ADMIN")) {
-         columns.push(ButtonColumn("Edit", "primary", editCallback, "SchoolTable"));
-         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "SchoolTable"));
-     }
-&nbsp;
-     return &lt;OurTable
-         data={school}
-         columns={columns}
-         testid={"SchoolTable"} /&gt;;
-    };</pre></td></tr></table></pre>
+    return (
+        &lt;&gt;
+            &lt;div&gt;Total Courses: {courses.length}&lt;/div&gt; 
+            &lt;OurTable data={courses} columns={columns} testid={"ShowTable"} /&gt;
+        &lt;/&gt;
+    );
+};</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
