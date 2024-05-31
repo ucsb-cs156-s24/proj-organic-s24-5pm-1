@@ -145,9 +145,6 @@ describe("CoursesForm tests", () => {
 
     });
 
-    //to be added for mutation
-    //line 24 in coursesform.js: [] changed to ["Stryker was here"]
-    // Added this test to address the mutation testing issue
     test("makes API call and sets school options on mount", async () => {
         render(
             <Router>

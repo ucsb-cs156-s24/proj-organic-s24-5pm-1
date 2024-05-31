@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
 import React, { useEffect, useState } from 'react';
 
-// import { schoolsFixtures } from "fixtures/schoolsFixtures.js";
 import axios from 'axios';
 
 
