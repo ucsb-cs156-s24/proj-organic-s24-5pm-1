@@ -40,9 +40,6 @@ describe("CoursesForm tests", () => {
         expect(listItem).not.toBeInTheDocument();
     });
 
-    //to be added for mutation
-    //line 24 in coursesform.js: [] changed to ["Stryker was here"]
-
     test("calls enableEndDateValidation on mount", () => {
         render(<CoursesForm />);
     
@@ -148,4 +145,42 @@ describe("CoursesForm tests", () => {
 
     });
 
+    test("makes API call and sets school options on mount", async () => {
+        render(
+            <Router>
+                <CoursesForm />
+            </Router>
+        );
+
+        // Check if the axios call was made
+        await waitFor(() => expect(axiosMock.history.get.length).toBe(1));
+
+        // Check if the school options are set correctly
+        await waitFor(() => {
+            expect(screen.getByTestId("CoursesForm-school")).toHaveTextContent("UC Santa Barbara");
+        });
+    });
+
+    // Test to ensure useEffect dependency array is correctly handled
+    test('useEffect dependency array is empty and runs only once', async () => {
+        const { rerender } = render(
+            <Router>
+                <CoursesForm />
+            </Router>
+        );
+
+        // First render: should call API and set school options
+        await waitFor(() => expect(axiosMock.history.get.length).toBe(1));
+
+        // Re-render with the same component: should not call API again
+        rerender(
+            <Router>
+                <CoursesForm />
+            </Router>
+        );
+
+        // Ensure no additional API calls are made
+        expect(axiosMock.history.get.length).toBe(1);
+    });
+    
 });

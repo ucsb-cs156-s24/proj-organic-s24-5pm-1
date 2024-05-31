@@ -41,6 +41,6 @@ export default function SchoolIndexPage() {
             <SchoolTable school={school} currentUser={currentUser} />
           </div>
         </BasicLayout>
-      )
+      );
   }
   

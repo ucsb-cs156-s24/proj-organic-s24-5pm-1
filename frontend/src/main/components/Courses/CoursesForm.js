@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
 import React, { useEffect, useState } from 'react';
 
-// import { schoolsFixtures } from "fixtures/schoolsFixtures.js";
 import axios from 'axios';
 
 
@@ -95,7 +94,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                                 <option 
                                 key={index} 
                                 value={school}
-                                selected={school == initialContents?.school ? true : false}>
+                                selected={school === initialContents?.school ? true : false}>
                                     {school}
                                 </option>
                             ))}
