@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import ShowTable from 'main/components/Courses/ShowTable';
+import StudentTable from 'main/components/Student/StudentTable';
 import { useBackend } from 'main/utils/useBackend';
 import { useCurrentUser } from 'main/utils/currentUser';
 
@@ -10,20 +11,36 @@ export default function CoursesShowPage() {
     let { id } = useParams();
     const { data: currentUser } = useCurrentUser();
 
-    const { data: courses, error: _error, status: _status } =
-        // Stryker disable all 
-        useBackend(
-            [],
-            {
-                method: "GET", url: "/api/courses/get",
-                params: {
-                    id
-                },
-            },
-            []
-        );
-         // Stryker restore all
 
+    const { data: courses, error: _Error, status: _Status } =
+         // Stryker disable all 
+        useBackend(
+           [],
+             {
+                 method: "GET", url: "/api/courses/get",
+                 params: {
+                     id
+                 },
+             },
+            []
+         );
+    
+    const courseId = courses?.id;
+         // Stryker restore all
+    const { data: students} =
+          // Stryker disable all 
+          useBackend(
+              [`/api/students/all?courseId=${courseId}`],
+              {
+                  method: "GET", 
+                  url: `/api/students/all`,
+                  params: {
+                    courseId
+                  }
+              },
+              []
+          );
+    
     return (
         <BasicLayout>
             <div className="pt-2">
@@ -46,6 +63,7 @@ export default function CoursesShowPage() {
                 <p>
                     <strong>Student Roster:</strong>
                     <p>View Students</p>
+                    <StudentTable students={students}/>
                 </p>
             </div>
         </BasicLayout>

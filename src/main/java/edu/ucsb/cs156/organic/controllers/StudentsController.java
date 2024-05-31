@@ -60,7 +60,7 @@ public class StudentsController extends ApiController {
 
         @Operation(summary = "Get Students for course")
         @PreAuthorize("hasRole('ROLE_ADMIN')")
-        @GetMapping("/all")
+        @GetMapping("all")
         public Iterable<Student> getStaff(
                         @Parameter(name = "courseId") @RequestParam Long courseId)
                         throws JsonProcessingException {
