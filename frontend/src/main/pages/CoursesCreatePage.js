@@ -11,7 +11,7 @@ export default function CoursesCreatePage({storybook=false}) {
         method: "POST",
         params: {
         name: course.name,
-        school: course.school,
+        // school: course.school,
         term: course.term,
         startDate: course.startDate,
         endDate: course.endDate,
@@ -32,9 +32,9 @@ export default function CoursesCreatePage({storybook=false}) {
 
     const { isSuccess } = mutation
 
-    // const onSubmit = async (data) => {
-    //     mutation.mutate(data);
-    // }
+    const onSubmit = async (data) => {
+        mutation.mutate(data);
+    }
     
     if (isSuccess && !storybook) {
         return <Navigate to="/courses" />
