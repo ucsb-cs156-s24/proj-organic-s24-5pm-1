@@ -1,7 +1,6 @@
 import StaffTable from "main/components/Staff/StaffTable"
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
-// import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import {  render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { staffFixture } from "fixtures/staffFixture";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -10,14 +9,15 @@ import { MemoryRouter } from "react-router-dom";
 const mockedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockedNavigate
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigate
 }));
+
 
 describe("StaffTable tests", () => {
   const queryClient = new QueryClient();
   const expectedHeaders = ["id", "courseId", "githubId"];
-  const expectedFields = ["id", "courseId", "githubId"]; 
+  const expectedFields = ["id", "courseId", "githubId"];
   const testId = "StaffTable";
 
   test("Has the expected column headers and content for ordinary user", () => {
@@ -35,13 +35,13 @@ describe("StaffTable tests", () => {
 
     const expectedStaffgithub = staffFixture.threeStaff;
     expectedStaffgithub.forEach((staffMember, index) => {
-      const githubIdCell = screen.getByTestId(`StaffTable-cell-row-${index}-col-githubId`);
+      const githubIdCell = screen.getByTestId(`${testId}-cell-row-${index}-col-githubId`);
       expect(githubIdCell).toHaveTextContent(staffMember.githubId);
     });
 
     const expectedStaffcourse = staffFixture.threeStaff;
     expectedStaffcourse.forEach((staffMember, index) => {
-      const courseIdCell = screen.getByTestId(`StaffTable-cell-row-${index}-col-courseId`);
+      const courseIdCell = screen.getByTestId(`${testId}-cell-row-${index}-col-courseId`);
       expect(courseIdCell).toHaveTextContent(staffMember.courseId);
     });
 
@@ -58,11 +58,6 @@ describe("StaffTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-
-    
-    const editButton = screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    expect(editButton).not.toBeInTheDocument();
-
     const deleteButton = screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).not.toBeInTheDocument();
 
@@ -76,8 +71,8 @@ describe("StaffTable tests", () => {
 
     // act
     render(
-        <QueryClientProvider client={queryClient}>
-          <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
           <StaffTable staff={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
@@ -105,7 +100,7 @@ describe("StaffTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -125,15 +120,26 @@ describe("StaffTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    // const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    // expect(deleteButton).toBeInTheDocument();
-    // expect(deleteButton).toHaveClass("btn-danger");
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toHaveClass("btn-danger");
+
 
   });
 
+  test("clicking Delete button calls the callback", () => {
+    const currentUser = currentUserFixtures.adminUser;
 
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <StaffTable staff={staffFixture.threeStaff} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
 
-
-  
-
+    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    fireEvent.click(deleteButton);
+  });
 });

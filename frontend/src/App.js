@@ -19,6 +19,9 @@ import CourseIndexPage from "main/pages/CourseIndexPage";
 import CoursesEditPage from "main/pages/CoursesEditPage";
 import CoursesShowPage from "main/pages/CoursesShowPage";
 
+import StaffIndexPage from "main/pages/StaffIndexPage";
+import StaffCreatePage from "main/pages/StaffCreatePage";
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 import NotFoundPage from "main/pages/NotFoundPage";
 
@@ -46,6 +49,8 @@ function App() {
       <Route path="/courses/create" element={<CoursesCreatePage />} />
       <Route path="/courses" element={<CourseIndexPage />} />
       <Route path="/courses/edit/:id" element={<CoursesEditPage />} />
+      <Route path="/courses/:id/staff" element={<StaffIndexPage />} />
+      <Route path="/staff/:id/create" element={<StaffCreatePage />} />
       <Route path="/courses/show/:id" element={<CoursesShowPage />} />
     </>
   ) : null;
