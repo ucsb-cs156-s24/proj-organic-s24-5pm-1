@@ -9,6 +9,7 @@ import edu.ucsb.cs156.organic.services.GrantedAuthoritiesService;
 import org.springframework.context.annotation.Import;
 
 @TestConfiguration
+
 @Import(SecurityConfig.class)
 public class TestConfig {
 

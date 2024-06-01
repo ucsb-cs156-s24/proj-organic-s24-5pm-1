@@ -27,7 +27,7 @@ jest.mock('react-router-dom', () => {
         __esModule: true,
         ...originalModule,
         useParams: () => ({
-            id: 17
+            id: 17,
         }),
         Navigate: (x) => { mockNavigate(x); return null; }
     };
@@ -145,7 +145,7 @@ describe("CoursesShowPage tests", () => {
         );
 
         await waitFor(() => {
-            expect(axiosMock.history.get.length).toBe(3);
+            expect(axiosMock.history.get.length).toBe(4);
         });
         await waitFor(() => {
             expect(axiosMock.history.get[0].url).toBe("/api/currentUser");
@@ -166,7 +166,7 @@ describe("CoursesShowPage tests", () => {
         );
 
         await waitFor(() => {
-            expect(axiosMock.history.get.length).toBe(3);
+            expect(axiosMock.history.get.length).toBe(4);
         });
         await waitFor(() => {
             expect(axiosMock.history.get[0].method).toBe("get");

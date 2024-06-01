@@ -91,24 +91,6 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
             <Row>
                 <Col>
-                    <Form.Group className="mb-3" >
-                        <Form.Label htmlFor="termError">Term Error</Form.Label>
-                        <Form.Control
-                            data-testid="SchoolForm-termError"
-                            id="termError"
-                            type="text"
-                            isInvalid={Boolean(errors.termError)}
-                            {...register("termError", { required: true})}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.termError && 'Term Error is required.'}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Col>
-            </Row>
-
-            <Row>
-                <Col>
                     <Button
                         type="submit"
                         data-testid="SchoolForm-submit"

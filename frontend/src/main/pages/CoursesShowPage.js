@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import ShowTable from 'main/components/Courses/ShowTable';
+import StudentTable from 'main/components/Student/StudentTable';
 import { useBackend } from 'main/utils/useBackend';
 import { useCurrentUser } from 'main/utils/currentUser';
 
 export default function CoursesShowPage() {
-    let { id } = useParams();
+    let { id, courseId } = useParams();
     const { data: currentUser } = useCurrentUser();
 
     const { data: courses, error: _error, status: _status } =
@@ -22,7 +23,6 @@ export default function CoursesShowPage() {
             },
             []
         );
-         // Stryker restore all
     
     const [file, setFile] = useState(null);
     const [uploadStatus, setUploadStatus] = useState('');
@@ -52,6 +52,19 @@ export default function CoursesShowPage() {
         }
     };
      
+         const { data: students, error: _errors, status: _statuses } =
+         // Stryker disable all 
+         useBackend(
+             [`/api/students/all?courseId=${courseId}`],
+             {
+                 method: "GET", url: "/api/students/all",
+                 params: {
+                     courseId: id
+                 },
+             },
+             []
+         );
+          // Stryker restore all
 
     return (
         <BasicLayout>
@@ -79,6 +92,7 @@ export default function CoursesShowPage() {
                 <p>
                     <strong>Student Roster:</strong>
                     <p>View Students</p>
+                    <StudentTable students={students}/>
                 </p>
             </div>
         </BasicLayout>

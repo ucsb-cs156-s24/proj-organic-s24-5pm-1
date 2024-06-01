@@ -107,7 +107,6 @@ describe("SchoolEditPage tests", () => {
             const nameField = screen.getByTestId("SchoolForm-name");
             const termRegexField = screen.getByTestId("SchoolForm-termRegex");
             const termDescriptionField = screen.getByTestId("SchoolForm-termDescription");
-            const termErrorField = screen.getByTestId("SchoolForm-termError");
             const submitButton = screen.getByTestId("SchoolForm-submit");
 
             expect(abbrevField).toBeInTheDocument();
@@ -118,15 +117,12 @@ describe("SchoolEditPage tests", () => {
             expect(termRegexField).toHaveValue("reg-17");
             expect(termDescriptionField).toBeInTheDocument();
             expect(termDescriptionField).toHaveValue("description-17");
-            expect(termErrorField).toBeInTheDocument();
-            expect(termErrorField).toHaveValue("error-17");
 
             expect(submitButton).toHaveTextContent("Update");
 
             fireEvent.change(nameField, { target: { value: 'new-name-17' } });
             fireEvent.change(termRegexField, { target: { value: 'new-reg-17' } });
             fireEvent.change(termDescriptionField, { target: { value: 'new-description-17' } });
-            fireEvent.change(termErrorField, { target: { value: 'new-error-17' } });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled());
@@ -140,7 +136,7 @@ describe("SchoolEditPage tests", () => {
                 name: "new-name-17",
                 termRegex: "new-reg-17",
                 termDescription: "new-description-17",
-                termError: "new-error-17" 
+                termError: "error-17" 
             })); 
 
 
@@ -161,7 +157,6 @@ describe("SchoolEditPage tests", () => {
             const nameField = screen.getByTestId("SchoolForm-name");
             const termRegexField = screen.getByTestId("SchoolForm-termRegex");
             const termDescriptionField = screen.getByTestId("SchoolForm-termDescription");
-            const termErrorField = screen.getByTestId("SchoolForm-termError");
             const submitButton = screen.getByTestId("SchoolForm-submit");
 
     
@@ -169,12 +164,10 @@ describe("SchoolEditPage tests", () => {
             expect(nameField).toHaveValue("name-17");
             expect(termRegexField).toHaveValue("reg-17");
             expect(termDescriptionField).toHaveValue("description-17");
-            expect(termErrorField).toHaveValue("error-17");
 
             fireEvent.change(nameField, { target: { value: 'new-name-17' } });
             fireEvent.change(termRegexField, { target: { value: 'new-reg-17' } });
             fireEvent.change(termDescriptionField, { target: { value: 'new-description-17' } });
-            fireEvent.change(termErrorField, { target: { value: 'new-error-17' } });
             fireEvent.click(submitButton);
 
             await waitFor(() => expect(mockToast).toBeCalled());

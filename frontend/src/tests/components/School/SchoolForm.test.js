@@ -64,7 +64,6 @@ describe("SchoolForm tests", () => {
         expect(screen.getByText(/Name is required./)).toBeInTheDocument();
         expect(screen.getByText(/Term Regex is required./)).toBeInTheDocument();
         expect(screen.getByText(/Term Description is required./)).toBeInTheDocument();
-        expect(screen.getByText(/Term Error is required./)).toBeInTheDocument();
     });
 
     test("No Error messsages on good input", async () => {
@@ -80,14 +79,12 @@ describe("SchoolForm tests", () => {
         const nameField = screen.getByTestId("SchoolForm-name");
         const termRegexField = screen.getByTestId("SchoolForm-termRegex");
         const termDescriptionField = screen.getByTestId("SchoolForm-termDescription");
-        const termErrorField = screen.getByTestId("SchoolForm-termError");
         const submitButton = screen.getByTestId("SchoolForm-submit");
 
         fireEvent.change(abbrevField, { target: { value: 'ucsb' } });
         fireEvent.change(nameField, { target: { value: 'UC Santa Barbara' } });
         fireEvent.change(termRegexField, { target: { value: '[WSMF]\\d\\d' } });
         fireEvent.change(termDescriptionField, { target: { value: 'Enter quarter, e.g. F23, W24, S24, M24' } });
-        fireEvent.change(termErrorField, { target: { value: 'Quarter must be entered in the correct format' } });
         fireEvent.click(submitButton);
 
         await screen.findByTestId(/SchoolForm-abbrev/);
@@ -96,7 +93,6 @@ describe("SchoolForm tests", () => {
         expect(screen.queryByText(/Name is required./)).not.toBeInTheDocument();
         expect(screen.queryByText(/Term Regex is required./)).not.toBeInTheDocument();
         expect(screen.queryByText(/Term Description is required./)).not.toBeInTheDocument();
-        expect(screen.queryByText(/Term Error is required./)).not.toBeInTheDocument();
     });
 
     test("that navigate(-1) is called when Cancel is clicked", async () => {
