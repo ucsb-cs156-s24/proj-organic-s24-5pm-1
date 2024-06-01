@@ -1,6 +1,6 @@
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
 import CoursesShowPage from "main/pages/CoursesShowPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
@@ -238,8 +238,10 @@ describe("CoursesShowPage tests", () => {
 
         render(
             <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <CoursesShowPage />
+                <MemoryRouter initialEntries={['/courses/show/1']}>
+                    <Routes>
+                        <Route path="/courses/show/:id" element={<CoursesShowPage />} />
+                    </Routes>
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -279,9 +281,12 @@ describe("CoursesShowPage tests", () => {
             message: 'File uploaded successfully.'
         });
 
+        axiosMock.onGet("/api/courses/get", { params: { id: 1 } }).reply(200, coursesFixtures.threeCourses[0]);
+
+
         render(
             <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
+                <MemoryRouter initialEntries={['/courses/show/1']}>
                     <CoursesShowPage />
                 </MemoryRouter>
             </QueryClientProvider>
@@ -292,6 +297,10 @@ describe("CoursesShowPage tests", () => {
 
         const submitButton = screen.getByText(/upload roster/i);
         userEvent.click(submitButton);
+        
+        await waitFor(() => {
+            expect(screen.getByText('File uploaded successfully.')).toBeInTheDocument();
+        });
 
         expect(mockAxios.history.post.length).toBe(1);
     });

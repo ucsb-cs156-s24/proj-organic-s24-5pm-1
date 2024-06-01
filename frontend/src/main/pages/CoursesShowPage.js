@@ -42,7 +42,9 @@ export default function CoursesShowPage() {
         formData.append('file', file);
         
         try {
-            await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
+            const response = await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
+
+            setUploadStatus(response.data["message"]);
         } catch (error) {
             console.error('Error response:', error);
             setUploadStatus("Error uploading file.");
