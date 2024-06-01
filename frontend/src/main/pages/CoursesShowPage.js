@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import ShowTable from 'main/components/Courses/ShowTable';
@@ -23,6 +23,40 @@ export default function CoursesShowPage() {
             []
         );
          // Stryker restore all
+    
+    const [file, setFile] = useState(null);
+    const [uploadStatus, setUploadStatus] = useState('');
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleFileUpload = async (e) => {
+        e.preventDefault();
+        if (!file) {
+            setUploadStatus('Please select a file to upload.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        try {
+            const response = await fetch(`http://localhost:8080/api/students/upload/egrades?courseId=${id}`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                setUploadStatus('File uploaded successfully.');
+            } else {
+                setUploadStatus('File upload failed.');
+            }
+        } catch (error) {
+            setUploadStatus('Error uploading file.');
+        }
+    };
+     
 
     return (
         <BasicLayout>
@@ -35,7 +69,11 @@ export default function CoursesShowPage() {
                 {/* Course Roster Upload Link */}
                 <p>
                     <strong>Course Roster:</strong>
-                    <p>Upload Roster</p>
+                    <form onSubmit={handleFileUpload}>
+                        <input type="file" accept=".csv" onChange={handleFileChange} />
+                        <button type="submit">Upload Roster</button>
+                    </form>
+                    {uploadStatus && <p>{uploadStatus}</p>}
                 </p>
                 {/* Staff Roster */}
                 <p>
