@@ -40,7 +40,7 @@ describe("CourseCreatePage tests", () => {
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        axiosMock.onGet("/api/schools/all").reply(200, schoolsFixtures.threeSchools);
+        axiosMock.onGet("/api/schools/all").reply(200, schoolsFixtures.threeSchools[0]);
 
     });
 
