@@ -85,7 +85,7 @@ describe("CoursesForm tests", () => {
 
         await screen.findByText(/Name is required./);
         expect(screen.getByText(/Name is required/)).toBeInTheDocument();
-        expect(screen.findByTestId(/School is required./)).toBeInTheDocument();
+        expect(screen.getByText(/School is required./)).toBeInTheDocument();
         expect(screen.getByText(/Term is required./)).toBeInTheDocument();
         expect(screen.getByText(/StartDate date is required./)).toBeInTheDocument();
         expect(screen.getByText(/EndDate date is required./)).toBeInTheDocument();
