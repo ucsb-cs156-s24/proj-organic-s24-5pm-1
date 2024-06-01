@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
@@ -42,17 +42,17 @@ export default function CoursesShowPage() {
         formData.append('file', file);
         
         try {
-            const response = await fetch(`http://localhost:8080/api/students/upload/egrades?courseId=${id}`, {
-                method: 'POST',
-                body: formData
-            });
+            const response = await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
 
-            if (response.ok) {
-                setUploadStatus('File uploaded successfully.');
+            if (response.status == 200) {
+                setUploadStatus(response.data['message']);
             } else {
+                const errorData = await response.data;
+                console.error('Error response:', errorData);
                 setUploadStatus('File upload failed.');
             }
         } catch (error) {
+            console.error('Error response:', error);
             setUploadStatus('Error uploading file.');
         }
     };
