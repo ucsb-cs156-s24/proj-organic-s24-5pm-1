@@ -85,7 +85,7 @@ describe("CoursesForm tests", () => {
 
         await screen.findByText(/Name is required./);
         expect(screen.getByText(/Name is required/)).toBeInTheDocument();
-        expect(screen.getByText(/School is required./)).toBeInTheDocument();
+        expect(screen.findByTestId(/School is required./)).toBeInTheDocument();
         expect(screen.getByText(/Term is required./)).toBeInTheDocument();
         expect(screen.getByText(/StartDate date is required./)).toBeInTheDocument();
         expect(screen.getByText(/EndDate date is required./)).toBeInTheDocument();
@@ -114,7 +114,7 @@ describe("CoursesForm tests", () => {
         const submitButton = screen.getByTestId("CoursesForm-submit");
 
         fireEvent.change(nameField, { target: { value: "CMPSC 156" } });
-        fireEvent.change(schoolField, { target: { value: 'UC Santa Barbara' } });
+        fireEvent.select(schoolField);
         fireEvent.change(termField, { target: { value: 'f23' } });
         fireEvent.change(startDateField, { target: { value: '2022-01-02T12:00' } });
         fireEvent.change(endDateField, { target: { value: '2022-02-02T12:00' } });
