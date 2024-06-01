@@ -42,13 +42,10 @@ export default function CoursesShowPage() {
         formData.append('file', file);
         
         try {
-            const response = await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
-
-            setUploadStatus(response.data['message']);
-            
+            await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
         } catch (error) {
             console.error('Error response:', error);
-            setUploadStatus('Error uploading file.');
+            setUploadStatus("Error uploading file.");
         }
     };
      
@@ -78,7 +75,8 @@ export default function CoursesShowPage() {
                 <p>
                     <strong>Course Roster:</strong>
                     <form onSubmit={handleFileUpload}>
-                        <input type="file" accept=".csv" onChange={handleFileChange} />
+                        <label htmlFor="file-upload">Choose file</label>
+                        <input id="file-upload" type="file" accept=".csv" onChange={handleFileChange} />
                         <button type="submit">Upload Roster</button>
                     </form>
                     {uploadStatus && <p>{uploadStatus}</p>}
