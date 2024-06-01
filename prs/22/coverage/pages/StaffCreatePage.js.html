@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/CoursesCreatePage.js</title>
+    <title>Code coverage report for pages/StaffCreatePage.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">pages</a> CoursesCreatePage.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">pages</a> StaffCreatePage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -113,9 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,9 +123,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,35 +164,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CoursesForm from "main/components/Courses/CoursesForm";
+import StaffForm from "main/components/Staff/StaffForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 &nbsp;
-export default function CoursesCreatePage({storybook=false}) {
+export default function StaffCreatePage({storybook=false}) {
+    let { id } = useParams();
 &nbsp;
-    const objectToAxiosParams = (course) =&gt; ({
-        url: "/api/courses/post",
+    const objectToAxiosParams = (staff) =&gt; ({
+        url: "/api/courses/addStaff",
         method: "POST",
         params: {
-        name: course.name,
-        school: course.school,
-        term: course.term,
-        startDate: course.startDate,
-        endDate: course.endDate,
-        githubOrg: course.githubOrg
+        courseId: id,
+        githubLogin: staff.githubLogin
         }
     });
 &nbsp;
-    const onSuccess = (course) =&gt; {
-        toast(`New course created - id: ${course.id}`);
+    const onSuccess = (staff) =&gt; {
+        toast(`New staff added - id: ${staff.id}`);
     }
 &nbsp;
     const mutation = useBackendMutation(
         objectToAxiosParams,
         { onSuccess }, 
         // Stryker disable next-line all : hard to set up test for caching
-        ["/api/courses/all"] // mutation makes this key stale so that pages relying on it reload
+        ["/api/courses/getStaff"] // mutation makes this key stale so that pages relying on it reload
         );
 &nbsp;
     const { isSuccess } = mutation
@@ -204,17 +198,17 @@ export default function CoursesCreatePage({storybook=false}) {
     const onSubmit = async (data) =&gt; {
         mutation.mutate(data);
     }
-    
+&nbsp;
     if (isSuccess &amp;&amp; !storybook) {
-        return &lt;Navigate to="/courses" /&gt;
+        return &lt;Navigate to={`/courses/${id}/staff`} /&gt;
     }
 &nbsp;
     return (
         &lt;BasicLayout&gt;
         &lt;div className="pt-2"&gt;
-            &lt;h1&gt;Create New Course&lt;/h1&gt;
+            &lt;h1&gt;Add New Staff&lt;/h1&gt;
 &nbsp;
-            &lt;CoursesForm submitAction={onSubmit} /&gt;
+            &lt;StaffForm submitAction={onSubmit} /&gt;
 &nbsp;
         &lt;/div&gt;
         &lt;/BasicLayout&gt;
