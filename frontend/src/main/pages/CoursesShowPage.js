@@ -44,13 +44,8 @@ export default function CoursesShowPage() {
         try {
             const response = await axios.post(`/api/students/upload/egrades?courseId=${id}`,formData);
 
-            if (response.status == 200) {
-                setUploadStatus(response.data['message']);
-            } else {
-                const errorData = await response.data;
-                console.error('Error response:', errorData);
-                setUploadStatus('File upload failed.');
-            }
+            setUploadStatus(response.data['message']);
+            
         } catch (error) {
             console.error('Error response:', error);
             setUploadStatus('Error uploading file.');
