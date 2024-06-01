@@ -106,7 +106,7 @@ describe("CoursesForm tests", () => {
         await screen.findByTestId("CoursesForm-name");
 
         const nameField = screen.getByTestId("CoursesForm-name");
-        const schoolField = screen.findByTestId("CoursesForm-school");
+        const schoolField = screen.getByTestId("CoursesForm-school");
         const termField = screen.getByTestId("CoursesForm-term");
         const startDateField = screen.getByTestId("CoursesForm-startDate");
         const endDateField = screen.getByTestId("CoursesForm-endDate");
