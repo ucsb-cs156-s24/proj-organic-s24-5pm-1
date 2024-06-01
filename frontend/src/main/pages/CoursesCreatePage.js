@@ -11,7 +11,7 @@ export default function CoursesCreatePage({storybook=false}) {
         method: "POST",
         params: {
         name: course.name,
-        // school: course.school,
+        school: course.school,
         term: course.term,
         startDate: course.startDate,
         endDate: course.endDate,
