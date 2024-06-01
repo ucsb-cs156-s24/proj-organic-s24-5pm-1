@@ -106,7 +106,7 @@ describe("CoursesForm tests", () => {
         await screen.findByTestId("CoursesForm-name");
 
         const nameField = screen.getByTestId("CoursesForm-name");
-        const schoolField = screen.getByTestId("CoursesForm-school");
+        const schoolField = screen.findByTestId("CoursesForm-school");
         const termField = screen.getByTestId("CoursesForm-term");
         const startDateField = screen.getByTestId("CoursesForm-startDate");
         const endDateField = screen.getByTestId("CoursesForm-endDate");
@@ -114,7 +114,7 @@ describe("CoursesForm tests", () => {
         const submitButton = screen.getByTestId("CoursesForm-submit");
 
         fireEvent.change(nameField, { target: { value: "CMPSC 156" } });
-        fireEvent.select(schoolField);
+        fireEvent.change(schoolField, { target: { value: 'UC Santa Barbara' } });
         fireEvent.change(termField, { target: { value: 'f23' } });
         fireEvent.change(startDateField, { target: { value: '2022-01-02T12:00' } });
         fireEvent.change(endDateField, { target: { value: '2022-02-02T12:00' } });
