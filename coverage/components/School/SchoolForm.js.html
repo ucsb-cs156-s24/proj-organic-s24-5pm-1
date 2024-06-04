@@ -176,7 +176,43 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,6 +234,36 @@
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,6 +358,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+&nbsp;
 &nbsp;
 function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 &nbsp;
@@ -316,14 +385,22 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Row&gt;
                 &lt;Col&gt;
                     &lt;Form.Group className="mb-3" &gt;
-                        &lt;Form.Label htmlFor="abbrev"&gt;Abbreviation&lt;/Form.Label&gt;
-                        &lt;Form.Control
+                        &lt;Form.Label htmlFor="abbrev"&gt;Abbreviation (all lowercase)&lt;/Form.Label&gt;
+                        &lt;OverlayTrigger
+                            placement="top"
+                            overlay={&lt;Tooltip&gt;Please choose an abbreviation for your school such as ucsb, wsu, uh-hilo, etc, consisting of only lowercase characters and hyphens.&lt;/Tooltip&gt;}
+                            delay='5'
+                        &gt;
+                            &lt;Form.Control
                             data-testid="SchoolForm-abbrev"
                             id="abbrev"
                             type="text"
                             isInvalid={Boolean(errors.abbrev)}
                             {...register("abbrev", { required: true, pattern: abbrev_regex })}
-                        /&gt;
+                            /&gt;
+&nbsp;
+                        &lt;/OverlayTrigger&gt;
+                        
                         &lt;Form.Control.Feedback type="invalid"&gt;
                             {errors.abbrev?.type === 'required' &amp;&amp; 'Abbreviation is required. '}
                             {errors.abbrev?.type === 'pattern' &amp;&amp; 'Abbreviation must be lowercase letters (_ and . allowed), e.g. ucsb'}
@@ -333,13 +410,21 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 &lt;Col&gt;
                     &lt;Form.Group className="mb-3" &gt;
                         &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid="SchoolForm-name"
-                            id="name"
-                            type="text"
-                            isInvalid={Boolean(errors.name)}
-                            {...register("name", { required: true })}
-                        /&gt;
+                        &lt;OverlayTrigger
+                            placement="top"
+                            overlay={&lt;Tooltip&gt;The normal full name by which your school is known, e.g. UC Santa Barbara, U Hawaii - Hilo, Washington State, Oregon State, etc.&lt;/Tooltip&gt;}
+                            delay='5'
+                        &gt;
+                            &lt;Form.Control
+                                data-testid="SchoolForm-name"
+                                id="name"
+                                type="text"
+                                isInvalid={Boolean(errors.name)}
+                                {...register("name", { required: true })}
+                            /&gt;
+&nbsp;
+                        &lt;/OverlayTrigger&gt;
+                        
                         &lt;Form.Control.Feedback type="invalid"&gt;
                             {errors.name &amp;&amp; 'Name is required. '}
                         &lt;/Form.Control.Feedback&gt;
@@ -347,16 +432,23 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 &lt;/Col&gt;
                 &lt;Col&gt;
                     &lt;Form.Group className="mb-3" &gt;
-                        &lt;Form.Label htmlFor="termRegex"&gt;Term Regex&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid="SchoolForm-termRegex"
-                            id="termRegex"
-                            type="text"
-                            isInvalid={Boolean(errors.termRegex)}
-                            {...register("termRegex", { required: true })}
-                        /&gt;
+                        &lt;Form.Label htmlFor="termRegex"&gt;Term Regex(Example: W24)&lt;/Form.Label&gt;
+                        &lt;OverlayTrigger
+                            placement="top"
+                            overlay={&lt;Tooltip&gt;Enter a regular expression that can be used for the abbreviations for academic terms at your school.  For example, if your terms are F24, W25, S25, M25, you can use [FWSM]\d\d.  To allow anything to be entered, use .* for this field.&lt;/Tooltip&gt;}
+                            delay='5'
+                        &gt;
+                            &lt;Form.Control
+                                data-testid="SchoolForm-termRegex"
+                                id="termRegex"
+                                type="text"
+                                isInvalid={Boolean(errors.termRegex)}
+                                {...register("termRegex", { required: true})}
+                            /&gt;
+                        &lt;/OverlayTrigger&gt;
+                        
                         &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.termRegex &amp;&amp; 'Term Regex is required. '}
+                            {errors.termRegex &amp;&amp; 'Term regex is required.'}
                         &lt;/Form.Control.Feedback&gt;
                     &lt;/Form.Group&gt;
                 &lt;/Col&gt;
@@ -365,14 +457,21 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Row&gt;
                 &lt;Col&gt;
                     &lt;Form.Group className="mb-3" &gt;
-                        &lt;Form.Label htmlFor="termDescription"&gt;Term Description&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid="SchoolForm-termDescription"
-                            id="termDescription"
-                            type="text"
-                            isInvalid={Boolean(errors.termDescription)}
-                            {...register("termDescription", { required: true})}
-                        /&gt;
+                        &lt;Form.Label htmlFor="termDescription"&gt;Term Description (e.g. Quarter, Semester, Session)&lt;/Form.Label&gt;
+                        &lt;OverlayTrigger
+                            placement="top"
+                            overlay={&lt;Tooltip&gt;Please enter the name of the academic term used at your school.  For example: Semester, Quarter, Session, etc.&lt;/Tooltip&gt;}
+                            delay='5'
+                        &gt;
+                            &lt;Form.Control
+                                data-testid="SchoolForm-termDescription"
+                                id="termDescription"
+                                type="text"
+                                isInvalid={Boolean(errors.termDescription)}
+                                {...register("termDescription", { required: true})}
+                            /&gt;
+                        &lt;/OverlayTrigger&gt;
+                        
                         &lt;Form.Control.Feedback type="invalid"&gt;
                             {errors.termDescription &amp;&amp; 'Term Description is required.'}
                         &lt;/Form.Control.Feedback&gt;
@@ -409,7 +508,7 @@ export default SchoolForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri May 31 2024 15:37:16 GMT-0700 (Pacific Daylight Time)
+                at Tue Jun 04 2024 15:59:23 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
