@@ -1,4 +1,4 @@
-import CoursesTable from "main/components/Courses/CoursesTable"
+import ShowTable from "main/components/Courses/ShowTable"
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { coursesFixtures } from "fixtures/coursesFixtures";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -23,7 +23,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
+          <ShowTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -31,7 +31,7 @@ describe("UserTable tests", () => {
 
     const expectedHeaders = ["id", "Name", "School", "Term", "StartDate", "EndDate", "GitHub Org"];
     const expectedFields = ["id", "name", "school", "term", "startDate", "endDate", "githubOrg"];
-    const testId = "CoursesTable";
+    const testId = "ShowTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -46,19 +46,10 @@ describe("UserTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    const joinButton = screen.queryByTestId(`${testId}-cell-row-0-col-Join-button`);
-    expect(joinButton).toBeInTheDocument();
-    expect(joinButton).toHaveClass("btn-primary");
 
 
     const editButton = screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).not.toBeInTheDocument();
-
-    const deleteButton = screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).not.toBeInTheDocument();
-
-    const showButton = screen.queryByTestId(`${testId}-cell-row-0-col-Show-button`);
-    expect(showButton).not.toBeInTheDocument();
 
     const totalCoursesElement = screen.getByText("Total Courses: 3"); // Assuming there are 3 courses in the fixture
     expect(totalCoursesElement).toBeInTheDocument();
@@ -73,13 +64,13 @@ describe("UserTable tests", () => {
     const currentUser = currentUserFixtures.adminUser;
     const expectedHeaders = ["id", "Name", "School", "Term", "StartDate", "EndDate", "GitHub Org"];
     const expectedFields = ["id", "name", "school", "term", "startDate", "endDate", "githubOrg"];
-    const testId = "CoursesTable";
+    const testId = "ShowTable";
     
     // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <CoursesTable courses={[]} currentUser={currentUser} />
+          <ShowTable courses={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
@@ -107,7 +98,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
+            <ShowTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -115,7 +106,7 @@ describe("UserTable tests", () => {
 
     const expectedHeaders = ["id", "Name", "School", "Term", "StartDate", "EndDate", "GitHub Org"];
     const expectedFields = ["id", "name", "school", "term", "startDate", "endDate", "githubOrg"];
-    const testId = "CoursesTable";
+    const testId = "ShowTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -130,20 +121,9 @@ describe("UserTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    const joinButton = screen.queryByTestId(`${testId}-cell-row-0-col-Join-button`);
-    expect(joinButton).toBeInTheDocument(); 
-
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
-
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-    expect(deleteButton).toHaveClass("btn-danger");
-
-    const showButton = screen.getByTestId(`${testId}-cell-row-0-col-Show-button`);
-    expect(showButton).toBeInTheDocument();
-    expect(showButton).toHaveClass("btn-primary");
 
     const totalCoursesElement = screen.getByText("Total Courses: 3"); // Assuming there are 3 courses in the fixture
     expect(totalCoursesElement).toBeInTheDocument();
@@ -156,7 +136,7 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
+            <ShowTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -164,7 +144,7 @@ describe("UserTable tests", () => {
 
     const expectedHeaders = ["id", "Name", "School", "Term", "StartDate", "EndDate", "GitHub Org"];
     const expectedFields = ["id", "name", "school", "term", "startDate", "endDate", "githubOrg"];
-    const testId = "CoursesTable";
+    const testId = "ShowTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -179,8 +159,6 @@ describe("UserTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    const joinButton = screen.queryByTestId(`${testId}-cell-row-0-col-Join-button`);
-    expect(joinButton).toBeInTheDocument(); 
 
     const staffButton = screen.getByTestId(`${testId}-cell-row-0-col-Staff-button`);
     expect(staffButton).toBeInTheDocument();
@@ -189,38 +167,6 @@ describe("UserTable tests", () => {
     const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
-
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-    expect(deleteButton).toHaveClass("btn-danger");
-
-    const showButton = screen.getByTestId(`${testId}-cell-row-0-col-Show-button`);
-    expect(showButton).toBeInTheDocument();
-    expect(showButton).toHaveClass("btn-primary");
-
-  });
-
-  test("Join button navigates to the join page for a user", async () => {
-
-    const currentUser = currentUserFixtures.userOnly;
-
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-
-    await waitFor(() => { expect(screen.getByTestId(`CoursesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
-    const joinButton = screen.getByTestId(`CoursesTable-cell-row-0-col-Join-button`);
-    expect(joinButton).toBeInTheDocument();
-
-    fireEvent.click(joinButton);
-
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/courses/join/1'));
 
   });
 
@@ -233,17 +179,17 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
+            <ShowTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    await waitFor(() => { expect(screen.getByTestId(`CoursesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(screen.getByTestId(`ShowTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
 
 
-    const staffButton = screen.getByTestId(`CoursesTable-cell-row-0-col-Staff-button`);
+    const staffButton = screen.getByTestId(`ShowTable-cell-row-0-col-Staff-button`);
     expect(staffButton).toBeInTheDocument();
 
     fireEvent.click(staffButton);
@@ -260,15 +206,15 @@ describe("UserTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
+            <ShowTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    await waitFor(() => { expect(screen.getByTestId(`CoursesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(screen.getByTestId(`ShowTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
-    const editButton = screen.getByTestId(`CoursesTable-cell-row-0-col-Edit-button`);
+    const editButton = screen.getByTestId(`ShowTable-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
 
     fireEvent.click(editButton);
@@ -279,58 +225,4 @@ describe("UserTable tests", () => {
     expect(totalCoursesElement).toBeInTheDocument();
     
   });
-
-
-  test("Delete button calls the callback", async () => {
-
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-
-    await waitFor(() => { expect(screen.getByTestId(`CoursesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
-
-    const deleteButton = screen.getByTestId(`CoursesTable-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-
-    fireEvent.click(deleteButton);
-
-    const totalCoursesElement = screen.getByText("Total Courses: 3"); // Assuming there are 3 courses in the fixture
-    expect(totalCoursesElement).toBeInTheDocument();
-  });
-
-  test("Show button shows individual course information", async () => {
-
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-            <CoursesTable courses={coursesFixtures.threeCourses} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-
-    await waitFor(() => { expect(screen.getByTestId(`CoursesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
-
-    const showButton = screen.getByTestId(`CoursesTable-cell-row-0-col-Show-button`);
-    expect(showButton).toBeInTheDocument();
-
-    fireEvent.click(showButton);
-
-    const totalCoursesElement = screen.getByText("Total Courses: 3"); // Assuming there are 3 courses in the fixture
-    expect(totalCoursesElement).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(mockedNavigate).toHaveBeenCalledWith('/courses/show/1');
-    });
-  });
-
 });

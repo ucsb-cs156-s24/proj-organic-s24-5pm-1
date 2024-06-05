@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import SchoolCreatePage from "main/pages/SchoolCreatePage";
+import StaffCreatePage from "main/pages/StaffCreatePage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -25,13 +25,16 @@ jest.mock('react-router-dom', () => {
     return {
         __esModule: true,
         ...originalModule,
+        useParams: () => ({
+            id: 1
+        }),
         Navigate: (x) => { mockNavigate(x); return null; }
     };
 });
 
-describe("SchoolCreatePage tests", () => {
+describe("StaffCreatePage tests", () => {
 
-    const axiosMock =new AxiosMockAdapter(axios);
+    const axiosMock = new AxiosMockAdapter(axios);
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -41,14 +44,12 @@ describe("SchoolCreatePage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     });
 
-    
-
     const queryClient = new QueryClient();
     test("renders without crashing", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <SchoolCreatePage />
+                    <StaffCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -57,54 +58,46 @@ describe("SchoolCreatePage tests", () => {
     test("on submit, makes request to backend", async () => {
 
         const queryClient = new QueryClient();
-        const school = {
-            abbrev: "abb",
-            name: "name-1",
-            termRegex: "[WSMF]\\d\\d",
-            termDescription: "F23",
+        const Staff = {
+            id: 1,
+            courseId: "1",
+            githubLogin: "cgaucho",
         };
 
-        axiosMock.onPost("/api/schools/post").reply(200, school);
+        axiosMock.onPost(`/api/courses/addStaff`).reply(202, Staff);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <SchoolCreatePage />
+                    <StaffCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
 
-        
-        expect(await screen.findByText("Create New School")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByTestId("StaffForm-githubLogin")).toBeInTheDocument();
+        });
 
-        const abbrevField = screen.getByTestId("SchoolForm-abbrev");
-        const nameField = screen.getByTestId("SchoolForm-name");
-        const termRegexField = screen.getByTestId("SchoolForm-termRegex");
-        const termDescriptionField = screen.getByTestId("SchoolForm-termDescription");
-        const submitButton = screen.getByTestId("SchoolForm-submit");
+        const githubField = screen.getByTestId("StaffForm-githubLogin");
+        const submitButton = screen.getByTestId("StaffForm-submit");
 
-       
-        fireEvent.change(abbrevField, { target: { value: 'abb' } });
-        fireEvent.change(nameField, { target: { value: 'name-1' } });
-        fireEvent.change(termRegexField, { target: { value: "[WSMF]\\d\\d" } });
-        fireEvent.change(termDescriptionField, { target: { value: 'F23' } });
-      
+        fireEvent.change(githubField, { target: { value: "cgaucho" } });
+
+        expect(submitButton).toBeInTheDocument();
 
         fireEvent.click(submitButton);
 
         await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        console.log(axiosMock.history.post);
 
-        expect(axiosMock.history.post[0].data).toEqual(
-            JSON.stringify({
-                "abbrev": "abb",
-                "name": "name-1",
-                "termRegex": "[WSMF]\\d\\d" ,
-                "termDescription": "F23",
-        }));
+        expect(axiosMock.history.post[0].params).toEqual(
+            {
+                "courseId": 1,
+                "githubLogin": "cgaucho"
+            });
 
-        expect(mockToast).toBeCalledWith("New school created - id: abb");
-        expect(mockNavigate).toBeCalledWith({ "to": "/schools" });
+        expect(mockToast).toBeCalledWith("New staff added - id: 1");
+        expect(mockNavigate).toBeCalledWith({ "to": "/courses/1/staff" });
+
     });
-
-
 });
