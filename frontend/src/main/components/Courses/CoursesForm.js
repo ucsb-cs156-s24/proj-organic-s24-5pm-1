@@ -6,7 +6,25 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
+function formatDateToISO(date) {
+    const pad = (n) => n.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
 
+function defaultStartDate() {
+    const today = new Date();
+    today.setHours(0, 1, 0, 0);
+    var startDateISO = formatDateToISO(today);
+    return startDateISO;
+}
+
+function defaultEndDate() {
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 120);
+    endDate.setHours(23, 59, 0, 0);
+    var endDateISO = formatDateToISO(endDate);
+    return endDateISO;
+}
 
 function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) { // schooloptions = drop down menu items
     const [schoolOptions, setSchoolOptions] = useState([]);
@@ -130,6 +148,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                             id="startDate"
                             type="datetime-local"
                             isInvalid={Boolean(errors.startDate)}
+                            defaultValue={defaultStartDate()}
                             {...register("startDate", { required: true, pattern: isodate_regex })}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -145,6 +164,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                             id="endDate"
                             type="datetime-local"
                             isInvalid={Boolean(errors.endDate)}
+                            defaultValue={defaultEndDate()}
                             {...register("endDate", {required: true, pattern: isodate_regex })}
                         />
                         <Form.Control.Feedback type="invalid">
