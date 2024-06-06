@@ -61,10 +61,10 @@ describe("CourseCreatePage tests", () => {
         const course = {
             id: 1,
             name: "CS156",
-            school: "UCSB",
+            school: "UC Santa Barbara",
             term: "F23",
-            startDate: "2023-09-24T12:00:00",
-            endDate: "2023-12-15T12:00:00",
+            startDate: "2023-09-24T12:00",
+            endDate: "2023-12-15T12:00",
             githubOrg: "ucsb-cs156-f23"
         };
 

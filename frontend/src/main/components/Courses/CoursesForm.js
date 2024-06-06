@@ -35,7 +35,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                 return data.data;
             })
             .then((jsonData) => {
-                const nameArray = jsonData.map(item => item.name);
+                const nameArray = Array.isArray(jsonData) ? jsonData.map(item => item.name) : [jsonData.name];
                 setSchoolOptions(nameArray);
             })
     }, 
