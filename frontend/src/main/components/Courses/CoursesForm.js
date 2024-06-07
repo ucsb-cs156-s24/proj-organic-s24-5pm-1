@@ -2,13 +2,33 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { enableEndDateValidation } from './dateValidation'; // Import the JavaScript file
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 
-function CoursesForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function formatDateToISO(date) {
+    const pad = (n) => n.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function defaultStartDate() {
+    const today = new Date();
+    today.setHours(0, 1, 0, 0);
+    var startDateISO = formatDateToISO(today);
+    return startDateISO;
+}
+
+function defaultEndDate() {
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 120);
+    endDate.setHours(23, 59, 0, 0);
+    var endDateISO = formatDateToISO(endDate);
+    return endDateISO;
+}
+
+function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) { // schooloptions = drop down menu items
     useEffect(() => {
         enableEndDateValidation(); // Call the function to enable end date validation
-    },); // Run only once after component mounts
-    // Stryker disable all
+    },);
+    // Run only once after component mounts
     const {
         register,
         formState: { errors },
@@ -106,6 +126,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create" }) 
                             id="startDate"
                             type="datetime-local"
                             isInvalid={Boolean(errors.startDate)}
+                            defaultValue={defaultStartDate()}
                             {...register("startDate", { required: true, pattern: isodate_regex })}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -121,6 +142,7 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create" }) 
                             id="endDate"
                             type="datetime-local"
                             isInvalid={Boolean(errors.endDate)}
+                            defaultValue={defaultEndDate()}
                             {...register("endDate", {required: true, pattern: isodate_regex })}
                         />
                         <Form.Control.Feedback type="invalid">
