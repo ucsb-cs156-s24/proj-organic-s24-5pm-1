@@ -82,23 +82,26 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
             <Row>
                 <Col>
                     <Form.Group className="mb-3" >
-                        <Form.Label htmlFor="school">School</Form.Label>
-                        <Form.Select
+                    <Form.Group controlId="school">
+                    <Form.Label>School</Form.Label>
+                        <Form.Control
+                            as="select"
                             data-testid="CoursesForm-school"
-                            id="school"
                             isInvalid={Boolean(errors.school)}
                             {...register("school", { required: true })}
                         >
                             <option value="">Select a school</option>
                             {schoolOptions.map((school, index) => (
                                 <option 
-                                key={index} 
-                                value={school}
-                                selected={school === initialContents?.school ? true : false}>
+                                    key={index} 
+                                    value={school}
+                                    selected={school === initialContents?.school ? true : false}
+                                >
                                     {school}
                                 </option>
                             ))}
-                        </Form.Select>
+                        </Form.Control>
+                    </Form.Group>
                         <Form.Control.Feedback type="invalid">
                             {errors.school && 'School is required. '}
                         </Form.Control.Feedback>
