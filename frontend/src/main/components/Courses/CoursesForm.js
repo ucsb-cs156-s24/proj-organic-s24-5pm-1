@@ -129,9 +129,6 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                             defaultValue={defaultStartDate()}
                             {...register("startDate", { required: true, pattern: isodate_regex })}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.startDate && 'StartDate date is required. '}
-                        </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
                 <Col>
@@ -145,9 +142,6 @@ function CoursesForm({ initialContents, submitAction, buttonLabel = "Create"}) {
                             defaultValue={defaultEndDate()}
                             {...register("endDate", {required: true, pattern: isodate_regex })}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.endDate && 'EndDate date is required. '}
-                        </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
             </Row>
